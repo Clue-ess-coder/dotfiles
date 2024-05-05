@@ -95,7 +95,7 @@ window_rules:
   # WORKSPACE MANAGEMENT
   ####################################################################
   - commands: ["move to workspace 1"]
-    match_process_name: "msedge"
+    match_process_name: "/msedge|thorium/"
     match_title: "/.*/"
   - commands: ["move to workspace 2"]
     match_title: "/SumatraPDF/"
@@ -110,7 +110,7 @@ window_rules:
     match_process_name: "zotero"
     match_title: "/^.*Zotero$/"
   - command: "set floating"
-    match_title: "/Settings|Go to|Explorer|Flow Laucher|Todoist|Control Panel|This PC|Everything|GlassWire|notepad|Visual Studio Code|ShareX/"
+    match_title: "/Settings|Go to|Explorer|Flow Laucher|Todoist|Control Panel|This PC|Everything|GlassWire|notepad|Visual Studio Code|ShareX|OBS/"
 
 binding_modes:
   - name: "resize"
