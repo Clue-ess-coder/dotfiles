@@ -58,27 +58,22 @@ bar:
       label_charging: "{battery_level}%"
 
 workspaces:
-  - name: "default"
-    display_name: "base"
-    keep_alive: false
+  # - name: "default"
+  #   display_name: "Home"
+  #   keep_alive: false
   - name: "1"
-    display_name: "browser"
+    display_name: "1-browser"
     keep_alive: false
   - name: "2"
-    display_name: "study"
+    display_name: "2-code"
     keep_alive: false
   - name: "3"
-    display_name: "terminal"
+    display_name: "3-obsidian"
     keep_alive: false
   - name: "4"
-    display_name: "explore"
+    display_name: "4-explore"
     keep_alive: false
   - name: "5"
-    display_name: "miscellaneous"
-    keep_alive: false
-  - name: "6"
-    display_name: "research"
-    keep_alive: false
 
 window_rules:
   - command: "ignore"
@@ -98,19 +93,15 @@ window_rules:
     match_process_name: "/msedge|thorium/"
     match_title: "/.*/"
   - commands: ["move to workspace 2"]
-    match_title: "/SumatraPDF/"
-  - commands: ["move to workspace 3"]
-    match_process_name: "/Code|Terminal|wt/"
+    match_process_name: "/Code/"
     match_title: "/.*/"
-  - commands: ["move to workspace 4"]
+  - commands: ["move to workspace 3"]
     match_title: "/Obsidian/"
-  - commands: ["move to workspace 5"]
-    match_title: "Windscribe|WhatsApp"
-  - commands: ["move to workspace 6"]
-    match_process_name: "zotero"
+  - commands: ["move to workspace 4"]
+    match_process_name: "/zotero|WhatsApp/"
     match_title: "/^.*Zotero$/"
   - command: "set floating"
-    match_title: "/Settings|Go to|Explorer|Flow Laucher|Todoist|Control Panel|This PC|Everything|GlassWire|notepad|Visual Studio Code|ShareX|OBS/"
+    match_title: "/Settings|Go to|Explorer|Flow Laucher|Todoist|Control Panel|This PC|Everything|ShareX|OBS/"
 
 binding_modes:
   - name: "resize"
@@ -132,15 +123,15 @@ binding_modes:
 
 keybindings:
   ## custom 
-  - commands: ["focus workspace 3", "exec wt"]
-    bindings: ["Alt+X"] 
-  - commands: ["focus workspace 4", "exec %LOCALAPPDATA%\\Programs\\obsidian\\Obsidian.exe"]
-    binding: "Alt+Shift+O"
-  - command: "exec %ProgramFiles%/Git/git-bash.exe"
-    binding: "Alt+Enter"  
+  # - commands: ["focus workspace 3", "exec wt"]
+  #   bindings: ["Alt+X"] 
+  - command: "exec wt"
+    bindings: ["Alt+X", "Alt+Enter"]
+  - commands: ["focus workspace 3", "exec %LOCALAPPDATA%\\Programs\\obsidian\\Obsidian.exe"]
+    binding: "Alt+Shift+O" 
 
   ## FOCUS
-  # - command: "focus left"
+  # - command: "focus left"x
   #   bindings: ["Alt+J"]
   # - command: "focus right"
   #   bindings: ["Alt+K"]
@@ -160,29 +151,17 @@ keybindings:
   #   bindings: ["Alt+Shift+J"]
 
   # RESIZE
-  # - command: "resize width -2%"
-  #   binding: "Alt+U"
-  # - command: "resize width +2%"
-  #   binding: "Alt+P"
-  # - command: "resize height +2%"
-  #   binding: "Alt+O"
-  # - command: "resize height -2%"
-  #   binding: "Alt+I"
-
   - command: "binding mode resize"
     binding: "Alt+R"
 
   - command: "tiling direction toggle"
     binding: "Alt+V"
 
-  - command: "focus mode toggle"
-    binding: "Alt+Shift+Z"
+  # - command: "focus mode toggle"
+  #   binding: "Alt+Tab"
 
   - command: "toggle floating"
     binding: "Alt+F"
-
-  - command: "toggle maximized"
-    binding: "Alt+M"
 
   - command: "close"
     binding: "Alt+Q"
@@ -194,6 +173,8 @@ keybindings:
     binding: "Alt+Shift+R"
 
   # WORKSPACES
+  # - command: "focus workspace default"
+  #   binding: "Alt+M"
   - command: "focus workspace 1"
     binding: "Alt+1"
   - command: "focus workspace 2"
@@ -202,10 +183,6 @@ keybindings:
     binding: "Alt+3"
   - command: "focus workspace 4"
     binding: "Alt+4"
-  - command: "focus workspace 5"
-    binding: "Alt+5"
-  - command: "focus workspace 6"
-    binding: "Alt+6"
   - commands: ["move to workspace 1", "focus workspace 1"]
     binding: "Alt+Shift+1"
   - commands: ["move to workspace 2", "focus workspace 2"]
@@ -214,7 +191,3 @@ keybindings:
     binding: "Alt+Shift+3"
   - commands: ["move to workspace 4", "focus workspace 4"]
     binding: "Alt+Shift+4"
-  - commands: ["move to workspace 5", "focus workspace 5"]
-    binding: "Alt+Shift+5"
-  - commands: ["move to workspace 6", "focus workspace 6"]
-    binding: "Alt+Shift+6"
