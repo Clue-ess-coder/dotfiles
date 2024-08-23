@@ -190,10 +190,14 @@ function pst { Get-Clipboard }
 # }
 
 function egc {
-    vim $HOME\.glaze-wm\config.yaml
+    vim ~\.glzr\glazewm\config.yaml
 }
 
-function initprofile {
+function admin {
+    Start-Process wt -Verb runAs
+}
+
+function initp {
     # Import Modules and External Profiles
     Import-Module -Name Terminal-Icons
     oh-my-posh init pwsh --config 'C:\Users\Abdul-Hameed\AppData\Local\Programs\oh-my-posh\themes\tonybaloney.omp.json' | Invoke-Expression

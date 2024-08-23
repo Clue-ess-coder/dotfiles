@@ -317,6 +317,76 @@ lazyg() {
 	git push
 }
 
+
+## Youtube-dl/ yt-dlp shenanigans to trim and download YouTube videos
+
+clip() {
+
+# download a section of a youtube video without downloading the whole video
+#   reference
+#        https://unix.stackexchange.com/a/392350/46470
+
+
+# echo help statement if 4 parameters are not entered
+# or $1 or $2 are not entered in the correct format 
+if [ -z "$1 " ] || [ -z "$2" ] || [ -z "$3" ] || [ -z "$4" ]; then
+
+   #                   $1            $2         $3         $4
+   echo
+   echo "     Produce a clip from youtube using"   
+   echo
+   echo "         1 clip URL"
+   echo "         2          start time, hh:mm:ss"
+   echo "         3                        end time,   hh:mm:ss"
+   echo "         4                                               out_file_name.mp4" 
+   echo "      "    
+   echo " eg   "    
+   echo
+   echo "    clip   https://www.youtube.com/watch?v=6mPxcljRRzE    00:01:56    00:02:15    out_clip.mp4"
+   echo "      "
+   echo
+   echo
+
+else
+
+# change to your download directory or it will work in the directory you are in
+cd /home/$USER/videos
+
+url_z="$1"
+start_time_z="$2"
+end_time_z="$3"
+out_file_name="$4"
+
+# eg
+# $1  url_z="https://www.youtube.com/watch?v=6mPxcljRRzE"
+# $2  start_time_z=00:01:56
+# $3    end_time_z=00:02:15
+#       duration_z=00:00:19
+# $4  out_file_name=out_clip.mp4
+
+# collect duration in seconds between times the two times to 
+#   calculate our ffmpeg "-to" duration from the $start_time and $end_time
+#       reference
+#           https://unix.stackexchange.com/a/167156/46470
+# start_time_z=00:01:56
+#   end_time_z=00:02:15
+beginning_seconds=$(date --date="$start_time_z" +%s);
+ending_seconds=$(date --date="$end_time_z" +%s);
+duration_z=$((ending_seconds-beginning_seconds))
+# echo the culculated duration in seconds
+#echo $duration_z
+# duration_z=19
+
+# get the necessary information from youtube. See the reference link above
+video_url_z="youtube-dl -g $url_z"
+
+# command
+ffmpeg $($video_url_z | sed "s/^/-ss $start_time_z -i /") -to $duration_z -c copy $out_file_name
+
+fi
+
+}
+
 #######################################################
 # Set the ultimate amazing command prompt
 #######################################################
