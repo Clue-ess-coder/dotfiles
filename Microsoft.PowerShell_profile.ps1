@@ -190,7 +190,7 @@ function pst { Get-Clipboard }
 # }
 
 function egc {
-    vim ~\.glzr\glazewm\config.yaml
+    vim "C:\Users\Abdul-Hameed\.glzr\glazewm\config.yaml"
 }
 
 function admin {

@@ -6,18 +6,18 @@
 #
 # Docs regarding window: https://some-future-docs-link.com
 window/bar:
-  providers: ['self']
+  providers: ["self"]
   # Width of the window in physical pixels.
-  width: '1366'
+  width: "{{ self.args.MONITOR_WIDTH }}"
   # Height of the window in physical pixels.
-  height: '28'
+  height: "26"
   # X-position of the window in physical pixels.
-  position_x: '0'
+  position_x: "{{ self.args.MONITOR_X }}"
   # Y-position of the window in physical pixels.
-  position_y: '1'
+  position_y: "{{ self.args.MONITOR_Y }}"
   # Whether to show the window above/below all others.
   # Allowed values: 'always_on_top', 'always_on_bottom', 'normal'.
-  z_order: 'normal'
+  z_order: "normal"
   # Whether the window should be shown in the taskbar.
   shown_in_taskbar: false
   # Whether the window should have resize handles.
@@ -37,17 +37,12 @@ window/bar:
     width: 100%;
     align-items: center;
     color: #ffffff;
-    font-family: JetBrainsMono NF;
-    font-size: 13px;
+    font-family: JetBrainsMono Nerd Font, monospace;
+    font-size: 11px;
     margin: 0px;
-    padding: 0px 64px;
-    border-radius: 5px;
+    padding: 0px 4px;
+    border-radius: 0px;
     background: # 20242cc4;
-
-    i {
-      color: rgb(115 130 175 / 95%);
-      margin-right: 7px;
-    }
 
   group/left:
     styles: |
@@ -60,28 +55,28 @@ window/bar:
         align-items: center;
 
         .workspace {
-          background: rgb(255 255 255 / 5%);
+          background: rgb(255 255 255 / 0%);
           margin-right: 4px;
           padding: 4px 8px;
-          color: rgb(255 255 255 / 90%);
+          color: rgb(255 255 255 / 60%);
           border: none;
-          border-radius: 2px;
+          border-radius: 5px;
           cursor: pointer;
 
           &.displayed {
-            background: rgb(255 255 255 / 15%);
+            background: rgb(255 255 255 / 100%);
           }
 
           &.focused,
           &:hover {
-            background: rgb(75 115 255 / 50%);
+            background: rgb(81 179 85 / 50%);
           }
         }
-      providers: ['glazewm']
+      providers: ["glazewm"]
       events:
-        - type: 'click'
-          fn_path: 'script.js#focusWorkspace'
-          selector: '.workspace'
+        - type: "click"
+          fn_path: "script.js#focusWorkspace"
+          selector: ".workspace"
       template: |
         @for (workspace of glazewm.currentWorkspaces) {
           <button
@@ -96,11 +91,28 @@ window/bar:
     styles: |
       justify-self: center;
 
-    template/clock:
-      providers: ['date']
-      # Available date tokens: https://moment.github.io/luxon/#/formatting?id=table-of-tokens
+    template/glazewm_other:
+      providers: ["glazewm"]
+      styles: |
+        .binding-mode {
+          background: rgb(255 255 255 / 70%);
+          color: rgb(255 255 255 / 100%);
+          border-radius: 5px;
+          padding: 4px 6px;
+        }
+
       template: |
-        {{ date.toFormat(date.now, 't | yyyy-MM-dd') }}
+        @for (bindingMode of glazewm.bindingModes) {
+          <span class="binding-mode">
+            {{ bindingMode.displayName ?? bindingMode.name }}
+          </span>
+        }
+
+    # template/clock:
+    #   providers: ['date']
+    #   # Available date tokens: https://moment.github.io/luxon/#/formatting?id=table-of-tokens
+    #   template: |
+    #     {{ date.toFormat(date.now, 't | yyyy-MM-dd') }}
 
   group/right:
     styles: |
@@ -112,50 +124,48 @@ window/bar:
       }
 
     template/glazewm_other:
-      providers: ['glazewm']
+      providers: ["glazewm"]
       styles: |
-        .binding-mode,
         .tiling-direction {
-          background: rgb(255 255 255 / 15%);
-          color: rgb(255 255 255 / 90%);
-          border-radius: 2px;
+          background: rgb(255 255 255 / 0%);
+          color: rgb(255 255 255 / 50%);
           padding: 4px 6px;
           margin: 0;
         }
 
       template: |
-        @for (bindingMode of glazewm.bindingModes) {
-          <span class="binding-mode">
-            {{ bindingMode.displayName ?? bindingMode.name }}
-          </span>
-        }
-
         @if (glazewm.tilingDirection === 'horizontal') {
-          <i class="tiling-direction nf nf-md-swap_horizontal"></i>
+          󰓡 
         } @else {
-          <i class="tiling-direction nf nf-md-swap_vertical"></i>
+         󱒓 
         }
 
     template/battery:
-      providers: ['battery']
+      providers: ["battery"]
       styles: |
         position: relative;
 
         .charging-icon {
           position: absolute;
-          font-size: 11px;
-          left: 7px;
-          top: 2px;
+          font-size: 10px;
+          left: -7px;
+          top: 0px;
         }
       template: |
         <!-- Show icon for whether battery is charging. -->
-        @if (battery.isCharging) {<i class="nf nf-md-power_plug charging-icon"></i>}
+        @if (battery.isCharging) {󱐋 }
 
         <!-- Show icon for how much of the battery is charged. -->
-        @if (battery.chargePercent > 90) {<i class="nf nf-fa-battery_4"></i>}
-        @else if (battery.chargePercent > 70) {<i class="nf nf-fa-battery_3"></i>}
-        @else if (battery.chargePercent > 40) {<i class="nf nf-fa-battery_2"></i>}
-        @else if (battery.chargePercent > 20) {<i class="nf nf-fa-battery_1"></i>}
-        @else {<i class="nf nf-fa-battery_0"></i>}
+        @if (battery.chargePercent > 90) {  }
+        @else if (battery.chargePercent > 70) { }
+        @else if (battery.chargePercent > 40) { }
+        @else if (battery.chargePercent > 20) { }
+        @else { }
 
         {{ Math.round(battery.chargePercent) }}%
+
+    template/clock:
+      providers: ['date']
+      # Available date tokens: https://moment.github.io/luxon/#/formatting?id=table-of-tokens
+      template: |
+        {{ date.toFormat(date.now, '[tt] [D]') }}

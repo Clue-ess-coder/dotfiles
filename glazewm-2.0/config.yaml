@@ -21,11 +21,11 @@ general:
 
 gaps:
   # Gap between adjacent windows.
-  inner_gap: "5px"
+  inner_gap: "4px"
 
   # Gap between windows and the screen edge.
   outer_gap:
-    top: "30px"
+    top: "26px"
     right: "4px"
     bottom: "4px"
     left: "4px"
@@ -37,12 +37,12 @@ window_effects:
     # ** Exclusive to Windows 11 due to API limitations.
     border:
       enabled: true
-      color: "#8dbcff"
+      color: "#8dbc58"
 
   # Visual effects to apply to non-focused windows.
   other_windows:
     border:
-      enabled: true
+      enabled: false
       color: "#a1a1a1"
 
 window_behavior:
@@ -59,12 +59,12 @@ window_behavior:
       centered: true
 
       # Whether to show floating windows as always on top.
-      shown_on_top: false
+      shown_on_top: true
 
     fullscreen:
       # Maximize the window if possible. If the window doesn't have a
       # maximize button, then it'll be fullscreen'ed normally instead.
-      maximized: false
+      maximized: true
 
       # Whether to show fullscreen windows as always on top.
       shown_on_top: false
@@ -85,29 +85,27 @@ workspaces:
   - name: "5"
     keep_alive: false
     bind_to_monitor: 1
-  - name: "6"
-    keep_alive: false
-    bind_to_monitor: 1
 
 window_rules:
-  # - commands: ["move --workspace 1"]
-  #   match:
-  #     - window_process: { regex: "msedge|brave|chrome" }
-  # - commands: ["move --workspace 2"]
-  #   match:
-  #     - window_process: { regex: "Code" }
-  # - commands: ["move --workspace 3"]
-  #   match:
-  #     - window_title: { regex: "Obsidian" }
-  # - commands: ["move --workspace 4"]
-  #   match:
-  #     - window_process: { regex: "zotero|WhatsApp" }
-  # - commands: ["set-floating"]
-  #   match:
-  #     - window_process:
-  #         {
-  #           regex: "Settings|Go to|Explorer|Flow Laucher|Todoist|Control Panel|This PC|Everything|ShareX|OBS|",
-  #         }
+  - commands: ["move --workspace 1"]
+    match:
+      - window_process: { regex: "msedge|brave|chrome" }
+  - commands: ["move --workspace 2"]
+    match:
+      - window_process: { regex: "Code" }
+  - commands: ["move --workspace 3"]
+    match:
+      - window_title: { regex: "Obsidian" }
+  - commands: ["move --workspace 4"]
+    match:
+      - window_process: { regex: "zotero" }
+      # - window_title: { regex: "WhatsApp" }
+  - commands: ["set-floating"]
+    match:
+      - window_title:
+          {
+            regex: "Settings|Go to|Explorer|Flow Laucher|Todoist|Control Panel|This PC|Everything|ShareX|OBS|WhatsApp",
+          }
   - commands: ["ignore"]
     match:
       # Ignores any Zebar windows.
@@ -135,9 +133,9 @@ binding_modes:
       - commands: ["resize --width +2%"]
         bindings: ["right"]
       - commands: ["resize --height +2%"]
-        bindings: ["up"]
-      - commands: ["resize --height -2%"]
         bindings: ["down"]
+      - commands: ["resize --height -2%"]
+        bindings: ["up"]
       # Press enter/escape to return to default keybindings.
       - commands: ["wm-disable-binding-mode --name resize"]
         bindings: ["escape", "enter"]
@@ -218,8 +216,6 @@ keybindings:
     bindings: ["alt+4"]
   - commands: ["focus --workspace 5"]
     bindings: ["alt+5"]
-  - commands: ["focus --workspace 6"]
-    bindings: ["alt+6"]
 
   # Move focused window to a workspace defined in `workspaces` config.
   - commands: ["move --workspace 1", "focus --workspace 1"]
@@ -232,5 +228,3 @@ keybindings:
     bindings: ["alt+shift+4"]
   - commands: ["move --workspace 5", "focus --workspace 5"]
     bindings: ["alt+shift+5"]
-  - commands: ["move --workspace 6", "focus --workspace 6"]
-    bindings: ["alt+shift+6"]
