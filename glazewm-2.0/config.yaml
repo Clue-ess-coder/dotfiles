@@ -1,72 +1,61 @@
 general:
-  # Commands to run when the WM has started (e.g. to run a script or launch
-  # another application). Here we are running a batch script to start Zebar.
-  startup_commands: ['shell-exec %userprofile%/.glzr/zebar/start.bat']
+  startup_commands: ['shell-exec %userprofile%/.glzr/zebar/start.bat', 'shell-exec %userprofile%/tools/gat-gwm.exe', 'shell-exec %userprofile%/tools/buttery-taskbar.exe']
 
-  # Whether to automatically focus windows underneath the cursor.
+  shutdown_commands: ["shell-exec taskKill /IM buttery-taskbar.exe"]
+  
+  config_reload_commands: []
+
   focus_follows_cursor: true
-
-  # Whether to switch back and forth between the previously focused
-  # workspace when focusing the current workspace.
   toggle_workspace_on_refocus: false
 
   cursor_jump:
-    # Whether to automatically move the cursor on the specified trigger.
-    enabled: true
-
-    # Trigger for cursor jump:
-    # - 'monitor_focus': Jump when focus changes between monitors.
-    # - 'window_focus': Jump when focus changes between windows.
-    trigger: "monitor_focus"
+    enabled: false
+    trigger: "monitor_focus" # monitor_focus, window_focus
 
 gaps:
-  # Gap between adjacent windows.
-  inner_gap: "4px"
-
-  # Gap between windows and the screen edge.
+  scale_with_dpi: true
+  inner_gap: "5px"
   outer_gap:
-    top: "26px"
-    right: "4px"
-    bottom: "4px"
-    left: "4px"
+    top: "15px"
+    right: "2px"
+    bottom: "1px"
+    left: "2px"
 
 window_effects:
-  # Visual effects to apply to the focused window.
   focused_window:
-    # Highlight the window with a colored border.
-    # ** Exclusive to Windows 11 due to API limitations.
     border:
-      enabled: true
+      enabled: false
       color: "#8dbc58"
 
-  # Visual effects to apply to non-focused windows.
+    hide_title_bar:
+      enabled: false
+
+    corner_style:
+      enabled: true
+      # Allowed values: 'square', 'rounded', 'small_rounded'.
+      style: 'square'
+
   other_windows:
     border:
       enabled: false
       color: "#a1a1a1"
+    
+    hide_title_bar:
+      enabled: false
+    
+    corner_style:
+      enabled: true
+      style: 'square'
 
 window_behavior:
-  # New windows are created in this state whenever possible.
-  # Allowed values: 'tiling', 'floating'.
-  initial_state: "tiling"
-
-  # Sets the default options for when a new window is created. This also
-  # changes the defaults for when the state change commands, like
-  # `set-floating`, are used without any flags.
+  initial_state: "tiling" # tiling, floating
   state_defaults:
     floating:
-      # Whether to center floating windows by default.
       centered: true
-
-      # Whether to show floating windows as always on top.
-      shown_on_top: true
+      shown_on_top: false
 
     fullscreen:
-      # Maximize the window if possible. If the window doesn't have a
-      # maximize button, then it'll be fullscreen'ed normally instead.
       maximized: true
-
-      # Whether to show fullscreen windows as always on top.
       shown_on_top: false
 
 workspaces:
@@ -92,7 +81,7 @@ window_rules:
       - window_process: { regex: "msedge|brave|chrome" }
   - commands: ["move --workspace 2"]
     match:
-      - window_process: { regex: "Code" }
+      - window_process: { regex: "Cursor" }
   - commands: ["move --workspace 3"]
     match:
       - window_title: { regex: "Obsidian" }
@@ -104,7 +93,7 @@ window_rules:
     match:
       - window_title:
           {
-            regex: "Settings|Go to|Explorer|Flow Laucher|Todoist|Control Panel|This PC|Everything|ShareX|OBS|WhatsApp",
+            regex: "Settings|Go to|Flow Laucher|Todoist|Control Panel|Everything|ShareX|OBS|WhatsApp",
           }
   - commands: ["ignore"]
     match:
@@ -125,79 +114,63 @@ window_rules:
 
 
 binding_modes:
-  # When enabled, the focused window can be resized via arrow keys or HJKL.
   - name: "resize"
     keybindings:
       - commands: ["resize --width -2%"]
-        bindings: ["left"]
-      - commands: ["resize --width +2%"]
         bindings: ["right"]
+      - commands: ["resize --width +2%"]
+        bindings: ["left"]
       - commands: ["resize --height +2%"]
         bindings: ["down"]
       - commands: ["resize --height -2%"]
         bindings: ["up"]
-      # Press enter/escape to return to default keybindings.
       - commands: ["wm-disable-binding-mode --name resize"]
         bindings: ["escape", "enter"]
-
-  # When enabled, all keybindings are disabled except for alt+shift+p which
-  # returns to default keybindings.
   - name: "pause"
     keybindings:
       - commands: ["wm-disable-binding-mode --name pause"]
         bindings: ["alt+shift+p"]
 
+
+## GENERAL KEYBINDS
+
 keybindings:
-  # Move focused window in a given direction.
   - commands: ["move --direction left"]
     bindings: ["alt+shift+a"]
+
   - commands: ["move --direction right"]
     bindings: ["alt+shift+s"]
-  # - commands: ['move --direction up']
-  #   bindings: ['alt+shift+k', 'alt+shift+up']
-  # - commands: ['move --direction down']
-  #   bindings: ['alt+shift+j', 'alt+shift+down']
 
-  # As an alternative to the resize keybindings above, resize mode enables
-  # resizing via arrow keys or HJKL. The binding mode is defined above with
-  # the name 'resize'.
+  - commands: ['toggle-minimized']
+    bindings: ['alt+e']
+
   - commands: ["wm-enable-binding-mode --name resize"]
-    bindings: ["alt+r"]
+    bindings: ["alt+shift+w"]
 
-  # Disables all keybindings until alt+shift+p is pressed again.
   - commands: ["wm-enable-binding-mode --name pause"]
     bindings: ["alt+shift+p"]
 
-  # Change tiling direction. This determines where new tiling windows will
-  # be inserted.
   - commands: ["toggle-tiling-direction"]
     bindings: ["alt+v"]
 
-  # Change focus from tiling windows -> floating -> fullscreen.
-  - commands: ["toggle-tiling"]
+  - commands: ["toggle-floating --centered"]
     bindings: ["alt+f"]
 
-  # Close focused window.
   - commands: ["close"]
     bindings: ["alt+q"]
 
-  # Kill GlazeWM process safely.
   - commands: ["wm-exit", "shell-exec taskKill /IM zebar.exe"]
     bindings: ["alt+shift+e"]
 
-  # Re-evaluate configuration file.
   - commands: ["wm-reload-config", "shell-exec taskKill /IM zebar.exe", "shell-exec %userprofile%/.glzr/zebar/start.bat"]
     bindings: ["alt+shift+r"]
 
-  # Redraw all windows.
-  - commands: ["wm-redraw"]
-    bindings: ["alt+shift+w"]
 
-  # Launch CMD terminal. Alternatively, use `shell-exec wt` or
-  # `shell-exec %ProgramFiles%/Git/git-bash.exe` to start Windows
-  # Terminal and Git Bash respectively.
+  ## CUSTOM KEYBINDS
+
   - commands: ["shell-exec wt"]
     bindings: ["alt+x"]
+
   - commands:
       [
         "focus --workspace 3",
@@ -205,7 +178,8 @@ keybindings:
       ]
     bindings: ["alt+shift+o"]
 
-  # Change focus to a workspace defined in `workspaces` config.
+  ## WORKSPACE MANAGEMENT
+
   - commands: ["focus --workspace 1"]
     bindings: ["alt+1"]
   - commands: ["focus --workspace 2"]
@@ -217,7 +191,6 @@ keybindings:
   - commands: ["focus --workspace 5"]
     bindings: ["alt+5"]
 
-  # Move focused window to a workspace defined in `workspaces` config.
   - commands: ["move --workspace 1", "focus --workspace 1"]
     bindings: ["alt+shift+1"]
   - commands: ["move --workspace 2", "focus --workspace 2"]

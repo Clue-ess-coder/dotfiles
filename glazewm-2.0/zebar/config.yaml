@@ -10,11 +10,15 @@ window/bar:
   # Width of the window in physical pixels.
   width: "{{ self.args.MONITOR_WIDTH }}"
   # Height of the window in physical pixels.
-  height: "26"
+  height: "14"
   # X-position of the window in physical pixels.
   position_x: "{{ self.args.MONITOR_X }}"
-  # Y-position of the window in physical pixels.
-  position_y: "{{ self.args.MONITOR_Y }}"
+  # Set the postion of the bar to the top of the screen
+  position_y: '{{ self.args.MONITOR_Y }}'
+
+  # Set the position of the bar to the bottom of the screen
+  # position_y: '{{ parseInt(self.args.MONITOR_HEIGHT) - 26 }}'
+  
   # Whether to show the window above/below all others.
   # Allowed values: 'always_on_top', 'always_on_bottom', 'normal'.
   z_order: "normal"
@@ -38,11 +42,11 @@ window/bar:
     align-items: center;
     color: #ffffff;
     font-family: JetBrainsMono Nerd Font, monospace;
-    font-size: 11px;
+    font-size: 12px;
     margin: 0px;
     padding: 0px 4px;
     border-radius: 0px;
-    background: # 20242cc4;
+    background: rgb(38 38 40 / 95%);
 
   group/left:
     styles: |
@@ -56,11 +60,11 @@ window/bar:
 
         .workspace {
           background: rgb(255 255 255 / 0%);
-          margin-right: 4px;
-          padding: 4px 8px;
+          margin-right: 7px;
+          padding: 1px 8px;
           color: rgb(255 255 255 / 60%);
           border: none;
-          border-radius: 5px;
+          border-radius: 0px;
           cursor: pointer;
 
           &.displayed {
@@ -69,7 +73,7 @@ window/bar:
 
           &.focused,
           &:hover {
-            background: rgb(81 179 85 / 50%);
+            background: rgb(255 255 255 / 30%);
           }
         }
       providers: ["glazewm"]
@@ -120,7 +124,7 @@ window/bar:
       display: flex;
 
       .template {
-        margin: 0 4px;
+        margin: 0 8px;
       }
 
     template/glazewm_other:
@@ -142,30 +146,17 @@ window/bar:
 
     template/battery:
       providers: ["battery"]
+
       styles: |
-        position: relative;
-
         .charging-icon {
-          position: absolute;
-          font-size: 10px;
-          left: -7px;
-          top: 0px;
+          font-size: 11px;
         }
+      
       template: |
-        <!-- Show icon for whether battery is charging. -->
-        @if (battery.isCharging) {󱐋 }
-
-        <!-- Show icon for how much of the battery is charged. -->
-        @if (battery.chargePercent > 90) {  }
-        @else if (battery.chargePercent > 70) { }
-        @else if (battery.chargePercent > 40) { }
-        @else if (battery.chargePercent > 20) { }
-        @else { }
-
-        {{ Math.round(battery.chargePercent) }}%
+        BAT: @if (battery.isCharging) {󱐋 } {{ Math.round(battery.chargePercent) }}%
 
     template/clock:
       providers: ['date']
       # Available date tokens: https://moment.github.io/luxon/#/formatting?id=table-of-tokens
       template: |
-        {{ date.toFormat(date.now, '[tt] [D]') }}
+        {{ date.toFormat(date.now, ' tt | D') }}
