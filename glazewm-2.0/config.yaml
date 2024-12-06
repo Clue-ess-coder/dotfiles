@@ -1,13 +1,18 @@
 general:
-  startup_commands: ['shell-exec %userprofile%/.glzr/zebar/start.bat', 'shell-exec %userprofile%/tools/gat-gwm.exe', 'shell-exec %userprofile%/tools/buttery-taskbar.exe']
+  startup_commands: ["shell-exec --hide-window %userprofile%/.glzr/zebar/start.bat", "shell-exec --hide-window %userprofile%/tools/gat-gwm.exe", "shell-exec --hide-window %userprofile%/tools/buttery-taskbar.exe"]
 
-  shutdown_commands: ["shell-exec taskKill /IM buttery-taskbar.exe"]
+  shutdown_commands: ["shell-exec --hide-window taskKill /IM buttery-taskbar.exe"]
   
   config_reload_commands: []
 
   focus_follows_cursor: true
-  toggle_workspace_on_refocus: false
 
+  toggle_workspace_on_refocus: false
+  
+  hide_method: 'cloak'
+  
+  show_all_in_taskbar: true
+  
   cursor_jump:
     enabled: false
     trigger: "monitor_focus" # monitor_focus, window_focus
@@ -55,7 +60,7 @@ window_behavior:
       shown_on_top: false
 
     fullscreen:
-      maximized: true
+      maximized: false
       shown_on_top: false
 
 workspaces:
@@ -84,17 +89,22 @@ window_rules:
       - window_process: { regex: "Cursor" }
   - commands: ["move --workspace 3"]
     match:
-      - window_title: { regex: "Obsidian" }
+      - window_process: { regex: "Obsidian" }
   - commands: ["move --workspace 4"]
     match:
       - window_process: { regex: "zotero" }
-      # - window_title: { regex: "WhatsApp" }
+  - commands: ["move --workspace 5"]
+    match:
+      - window_process: { regex: "slack" }
+      - window_title: { regex: "WhatsApp" }
   - commands: ["set-floating"]
     match:
       - window_title:
           {
-            regex: "Settings|Go to|Flow Laucher|Todoist|Control Panel|Everything|ShareX|OBS|WhatsApp",
+            regex: "Settings|Control Panel|Everything|ShareX",
           }
+      - window_class: { regex: "CabinetWClass" }
+      - window_process: { equals: "Photos" }
   - commands: ["ignore"]
     match:
       # Ignores any Zebar windows.
@@ -111,6 +121,7 @@ window_rules:
 
       # Custom process rules
       - window_process: { regex: "Taskmgr|ScreenClippingHost" }
+      - window_title: { regex: "Run" }
 
 
 binding_modes:
@@ -141,8 +152,8 @@ keybindings:
   - commands: ["move --direction right"]
     bindings: ["alt+shift+s"]
 
-  - commands: ['toggle-minimized']
-    bindings: ['alt+e']
+  - commands: ["toggle-minimized"]
+    bindings: ["alt+e"]
 
   - commands: ["wm-enable-binding-mode --name resize"]
     bindings: ["alt+shift+w"]
@@ -156,13 +167,16 @@ keybindings:
   - commands: ["toggle-floating --centered"]
     bindings: ["alt+f"]
 
+  - commands: ["toggle-floating"]
+    bindings: ["lwin+t"]
+
   - commands: ["close"]
     bindings: ["alt+q"]
 
-  - commands: ["wm-exit", "shell-exec taskKill /IM zebar.exe"]
+  - commands: ["wm-exit", "shell-exec --hide-window taskKill /IM zebar.exe"]
     bindings: ["alt+shift+e"]
 
-  - commands: ["wm-reload-config", "shell-exec taskKill /IM zebar.exe", "shell-exec %userprofile%/.glzr/zebar/start.bat"]
+  - commands: ["wm-reload-config", "shell-exec --hide-window taskKill /IM zebar.exe", "shell-exec --hide-window %userprofile%/.glzr/zebar/start.bat"]
     bindings: ["alt+shift+r"]
 
 
