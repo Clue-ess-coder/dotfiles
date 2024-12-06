@@ -55,11 +55,25 @@ function reloadprofile {
     & $profile
 }
 
+# Original unzip function
+# function unzip ($file) {
+#     Write-Output("Extracting", $file, "to", $pwd)
+#     $fullFile = Get-ChildItem -Path $pwd -Filter $file | ForEach-Object { $_.FullName }
+#     Expand-Archive -Path $fullFile -DestinationPath $pwd
+# }
+
 function unzip ($file) {
-    Write-Output("Extracting", $file, "to", $pwd)
-    $fullFile = Get-ChildItem -Path $pwd -Filter $file | ForEach-Object { $_.FullName }
-    Expand-Archive -Path $fullFile -DestinationPath $pwd
+    $currentPath = Get-Location
+    $fullFile = Join-Path -Path $currentPath -ChildPath $file
+    
+    if (Test-Path $fullFile) {
+        Write-Output("Extracting", $file, "to", $currentPath)
+        Expand-Archive -Path $fullFile -DestinationPath $currentPath -Force
+    } else {
+        Write-Error "File not found: $fullFile"
+    }
 }
+
 function hb {
     if ($args.Length -eq 0) {
         Write-Error "No file path specified."
@@ -183,11 +197,11 @@ function cpy { Set-Clipboard $args[0] }
 function pst { Get-Clipboard }
 
 # Enhanced PowerShell Experience
-# Set-PSReadLineOption -Colors @{
-#     Command = 'Yellow'
-#     Parameter = 'Green'
-#     String = 'DarkCyan'
-# }
+Set-PSReadLineOption -Colors @{
+    Command = 'Yellow'
+    Parameter = 'Green'
+    String = 'DarkCyan'
+}
 
 function egc {
     vim "C:\Users\Abdul-Hameed\.glzr\glazewm\config.yaml"
@@ -208,10 +222,20 @@ function bm {
 function hugo-dev {
     hugo server -D --disableFastRender --noHTTPCache --renderToMemory --gc --navigateToChanged
 }
-Set-Alias -Name serve -Value hugo-dev
+
+function compile-pdf {
+    xelatex --shell-escape main.tex
+}
 
 function init {
     # Import Modules and External Profiles
     Import-Module -Name Terminal-Icons
     oh-my-posh init pwsh --config 'C:\Users\Abdul-Hameed\AppData\Local\Programs\oh-my-posh\themes\tonybaloney.omp.json' | Invoke-Expression
 }
+
+# Aliases
+
+Set-Alias -Name serve -Value hugo-dev
+
+Set-Alias -Name cat -Value bat
+[System.Environment]::SetEnvironmentVariable('PATH',$Env:PATH+';;C:\Users\Abdul-Hameed\tools\kubo')
