@@ -19,20 +19,16 @@ function Test-CommandExists {
 }
 
 # Editor Configuration
-$EDITOR = if (Test-CommandExists nvim) { 'nvim' }
-          elseif (Test-CommandExists pvim) { 'pvim' }
-          elseif (Test-CommandExists vim) { 'vim' }
-          elseif (Test-CommandExists vi) { 'vi' }
-          elseif (Test-CommandExists code) { 'code' }
-          elseif (Test-CommandExists notepad++) { 'notepad++' }
-          elseif (Test-CommandExists sublime_text) { 'sublime_text' }
+$EDITOR = if (Test-CommandExists micro) { 'micro' }
           else { 'notepad' }
-Set-Alias -Name vim -Value $EDITOR
+Set-Alias -Name edit -Value $EDITOR
 
 function Edit-Profile {
     vim $PROFILE.CurrentUserAllHosts
 }
+
 function touch($file) { "" | Out-File $file -Encoding ASCII }
+
 function ff($name) {
     Get-ChildItem -recurse -filter "*${name}*" -ErrorAction SilentlyContinue | ForEach-Object {
         Write-Output "$($_.directory)\$($_)"
@@ -238,4 +234,3 @@ function init {
 Set-Alias -Name serve -Value hugo-dev
 
 Set-Alias -Name cat -Value bat
-[System.Environment]::SetEnvironmentVariable('PATH',$Env:PATH+';;C:\Users\Abdul-Hameed\tools\kubo')

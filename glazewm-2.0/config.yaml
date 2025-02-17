@@ -3,6 +3,7 @@ general:
 
   shutdown_commands: ["shell-exec --hide-window taskKill /IM buttery-taskbar.exe"]
   
+
   config_reload_commands: []
 
   focus_follows_cursor: true
@@ -79,6 +80,9 @@ workspaces:
   - name: "5"
     keep_alive: false
     bind_to_monitor: 1
+  - name: "6"
+    keep_alive: false
+    bind_to_monitor: 1
 
 window_rules:
   - commands: ["move --workspace 1"]
@@ -97,6 +101,9 @@ window_rules:
     match:
       - window_process: { regex: "slack" }
       - window_title: { regex: "WhatsApp" }
+  - commands: ["move --workspace 6"]
+    match:
+      - window_process: { regex: "calibre" }
   - commands: ["set-floating"]
     match:
       - window_title:
@@ -104,7 +111,7 @@ window_rules:
             regex: "Settings|Control Panel|Everything|ShareX",
           }
       - window_class: { regex: "CabinetWClass" }
-      - window_process: { equals: "Photos" }
+      - window_process: { regex: "Photos|ebook-viewer" }
   - commands: ["ignore"]
     match:
       # Ignores any Zebar windows.
@@ -204,6 +211,8 @@ keybindings:
     bindings: ["alt+4"]
   - commands: ["focus --workspace 5"]
     bindings: ["alt+5"]
+  - commands: ["focus --workspace 6"]
+    bindings: ["alt+6"]
 
   - commands: ["move --workspace 1", "focus --workspace 1"]
     bindings: ["alt+shift+1"]
@@ -215,3 +224,5 @@ keybindings:
     bindings: ["alt+shift+4"]
   - commands: ["move --workspace 5", "focus --workspace 5"]
     bindings: ["alt+shift+5"]
+  - commands: ["move --workspace 6", "focus --workspace 6"]
+    bindings: ["alt+shift+6"]
