@@ -8,6 +8,12 @@ function prompt {
     ## Init Zoxide
     Invoke-Expression (& { (zoxide init powershell | Out-String) })
 }
+
+#opt-out of telemetry before doing anything, only if PowerShell is run as admin
+if ([bool]([System.Security.Principal.WindowsIdentity]::GetCurrent()).IsSystem) {
+    [System.Environment]::SetEnvironmentVariable('POWERSHELL_TELEMETRY_OPTOUT', 'true', [System.EnvironmentVariableTarget]::Machine)
+}
+
 $adminSuffix = if ($isAdmin) { " [ADMIN]" } else { "" }
 $Host.UI.RawUI.WindowTitle = "PowerShell {0}$adminSuffix" -f $PSVersionTable.PSVersion.ToString()
 
@@ -43,14 +49,36 @@ function Test-CommandExists {
 }
 
 # Editor Configuration
-$EDITOR = if (Test-CommandExists code) { 'code' }
+$EDITOR = if (Test-CommandExists micro) { 'micro' }
+          elseif (Test-CommandExists code) { 'code' }
           elseif (Test-CommandExists notepad++) { 'notepad++' }
-          elseif (Test-CommandExists sublime_text) { 'sublime_text' }
           else { 'notepad' }
 Set-Alias -Name vim -Value $EDITOR
 
 function Edit-Profile {
     vim $PROFILE.CurrentUserAllHosts
+}
+
+#################################################
+# New Additions
+#################################################
+# Network Utilities
+function Get-PubIP { (Invoke-WebRequest http://ifconfig.me/ip).Content }
+
+# Open WinUtil full-release
+function winutil {
+    irm https://christitus.com/win | iex
+}
+
+# Open WinUtil dev-release
+function winutildev {
+	# If function "WinUtilDev_Override" is defined in profile.ps1 file
+    # then call it instead.
+    if (Get-Command -Name "WinUtilDev_Override" -ErrorAction SilentlyContinue) {
+        WinUtilDev_Override
+    } else {
+        irm https://christitus.com/windev | iex
+    }
 }
 
 # System Utilities
@@ -109,31 +137,6 @@ function unzip ($file) {
     }
 }
 
-function hb {
-    if ($args.Length -eq 0) {
-        Write-Error "No file path specified."
-        return
-    }
-    
-    $FilePath = $args[0]
-    
-    if (Test-Path $FilePath) {
-        $Content = Get-Content $FilePath -Raw
-    } else {
-        Write-Error "File path does not exist."
-        return
-    }
-    
-    $uri = "http://bin.christitus.com/documents"
-    try {
-        $response = Invoke-RestMethod -Uri $uri -Method Post -Body $Content -ErrorAction Stop
-        $hasteKey = $response.key
-        $url = "http://bin.christitus.com/$hasteKey"
-        Write-Output $url
-    } catch {
-        Write-Error "Failed to upload the document. Error: $_"
-    }
-}
 function grep($regex, $dir) {
     if ( $dir ) {
         Get-ChildItem $dir | select-string $regex
@@ -182,12 +185,47 @@ function nf { param($name) New-Item -ItemType "file" -Path . -Name $name }
 # Directory Management
 function mkcd { param($dir) mkdir $dir -Force; Set-Location $dir }
 
+function trash($path) {
+    $fullPath = (Resolve-Path -Path $path).Path
+
+    if (Test-Path $fullPath) {
+        $item = Get-Item $fullPath
+
+        if ($item.PSIsContainer) {
+          # Handle directory
+            $parentPath = $item.Parent.FullName
+        } else {
+            # Handle file
+            $parentPath = $item.DirectoryName
+        }
+
+        $shell = New-Object -ComObject 'Shell.Application'
+        $shellItem = $shell.NameSpace($parentPath).ParseName($item.Name)
+
+        if ($item) {
+            $shellItem.InvokeVerb('delete')
+            Write-Host "Item '$fullPath' has been moved to the Recycle Bin."
+        } else {
+            Write-Host "Error: Could not find the item '$fullPath' to trash."
+        }
+    } else {
+        Write-Host "Error: Item '$fullPath' does not exist."
+    }
+}
+
+
 ### Quality of Life Aliases
 
 # Navigation Shortcuts
-function docs { Set-Location -Path $HOME\Documents }
-
-function dtop { Set-Location -Path $HOME\Desktop }
+function docs { 
+    $docs = if(([Environment]::GetFolderPath("MyDocuments"))) {([Environment]::GetFolderPath("MyDocuments"))} else {$HOME + "\Documents"}
+    Set-Location -Path $docs
+}
+    
+function dtop { 
+    $dtop = if ([Environment]::GetFolderPath("Desktop")) {[Environment]::GetFolderPath("Desktop")} else {$HOME + "\Documents"}
+    Set-Location -Path $dtop
+}
 
 # Quick Access to Editing the Profile
 function ep { vim $PROFILE }
@@ -206,9 +244,13 @@ function ga { git add . }
 
 function gc { param($m) git commit -m "$m" }
 
-function gp { git push }
+function gpush { git push }
 
-function g { z Github }
+function gpull { git pull }
+
+function g { __zoxide_z github }
+
+function gcl { git clone "$args" }
 
 function gcom {
     git add .
@@ -224,7 +266,10 @@ function lazyg {
 function sysinfo { Get-ComputerInfo }
 
 # Networking Utilities
-function flushdns { Clear-DnsClientCache }
+function flushdns { 
+    Clear-DnsClientCache 
+    Write-Host "DNS cache flushed." -ForegroundColor Green
+}
 
 # Clipboard Utilities
 function cpy { Set-Clipboard $args[0] }
@@ -258,14 +303,29 @@ function compile-pdf {
     xelatex --shell-escape main.tex
 }
 
+function y {
+    $tmp = [System.IO.Path]::GetTempFileName()
+    yazi $args --cwd-file="$tmp"
+    $cwd = Get-Content -Path $tmp -Encoding UTF8
+    if (-not [String]::IsNullOrEmpty($cwd) -and $cwd -ne $PWD.Path) {
+        Set-Location -LiteralPath ([System.IO.Path]::GetFullPath($cwd))
+    }
+    Remove-Item -Path $tmp
+}
+
 function init {
     # Import Modules and External Profiles
     Import-Module -Name Terminal-Icons
     oh-my-posh init pwsh --config 'C:\Users\Abdul-Hameed\AppData\Local\Programs\oh-my-posh\themes\tonybaloney.omp.json' | Invoke-Expression
 }
 
+function clear-history {
+    set-content -Path ((Get-PSReadLineOption).HistorySavePath) -value 'Write-Host "You manually cleared this history on (Get-Date)"'
+}
+
 # Aliases
 
 Set-Alias -Name serve -Value hugo-dev
 
-Set-Alias -Name cat -Value bat
+Import-Module 'gsudoModule'
+Invoke-Expression (& { (zoxide init --cmd z powershell | Out-String) })

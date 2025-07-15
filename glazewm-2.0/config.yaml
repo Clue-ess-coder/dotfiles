@@ -1,7 +1,7 @@
 general:
-  startup_commands: ["shell-exec --hide-window %userprofile%/.glzr/zebar/start.bat", "shell-exec --hide-window %userprofile%/tools/gat-gwm.exe", "shell-exec --hide-window %userprofile%/tools/buttery-taskbar.exe"]
+  startup_commands: ["shell-exec --hide-window %userprofile%/.glzr/zebar/start.bat", "shell-exec --hide-window %userprofile%/tools/gat-gwm.exe"]
 
-  shutdown_commands: ["shell-exec --hide-window taskKill /IM buttery-taskbar.exe"]
+  # shutdown_commands: [""]
   
 
   config_reload_commands: []
@@ -191,6 +191,9 @@ keybindings:
 
   - commands: ["shell-exec wt"]
     bindings: ["alt+x"]
+
+  - commands: ['shell-exec wt -p "Git Bash"']
+    bindings: ["alt+shift+x"]
 
   - commands:
       [
