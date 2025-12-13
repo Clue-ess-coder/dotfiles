@@ -1,19 +1,22 @@
 general:
-  startup_commands: ["shell-exec --hide-window %userprofile%/.glzr/zebar/start.bat", "shell-exec --hide-window %userprofile%/tools/gat-gwm.exe"]
+  startup_commands:
+    [
+      "shell-exec --hide-window %userprofile%/.glzr/zebar/start.bat",
+      "shell-exec --hide-window %userprofile%/tools/gat-gwm.exe",
+    ]
 
   # shutdown_commands: [""]
-  
 
   config_reload_commands: []
 
   focus_follows_cursor: true
 
   toggle_workspace_on_refocus: false
-  
-  hide_method: 'cloak'
-  
+
+  hide_method: "cloak"
+
   show_all_in_taskbar: true
-  
+
   cursor_jump:
     enabled: false
     trigger: "monitor_focus" # monitor_focus, window_focus
@@ -22,10 +25,10 @@ gaps:
   scale_with_dpi: true
   inner_gap: "5px"
   outer_gap:
-    top: "15px"
-    right: "2px"
-    bottom: "1px"
-    left: "2px"
+    top: "18px"
+    right: "5px"
+    bottom: "5px"
+    left: "5px"
 
 window_effects:
   focused_window:
@@ -39,19 +42,27 @@ window_effects:
     corner_style:
       enabled: true
       # Allowed values: 'square', 'rounded', 'small_rounded'.
-      style: 'square'
+      style: "rounded"
+
+    transparency:
+      enabled: true
+      opacity: "100%"
 
   other_windows:
     border:
       enabled: false
       color: "#a1a1a1"
-    
+
     hide_title_bar:
       enabled: false
-    
+
     corner_style:
       enabled: true
-      style: 'square'
+      style: "rounded"
+
+    transparency:
+      enabled: true
+      opacity: "95%"
 
 window_behavior:
   initial_state: "tiling" # tiling, floating
@@ -85,18 +96,22 @@ workspaces:
     bind_to_monitor: 1
 
 window_rules:
-  - commands: ["move --workspace 1"]
-    match:
-      - window_process: { regex: "msedge|brave|chrome" }
   - commands: ["move --workspace 2"]
     match:
-      - window_process: { regex: "Cursor" }
+      - window_process: { regex: "msedge|brave|chrome" }
+  - commands: ["move --workspace 1"]
+    match:
+      # - window_process: { regex: "Cursor" }
+      # - window_process: { regex: "Codium" }
   - commands: ["move --workspace 3"]
     match:
       - window_process: { regex: "Obsidian" }
   - commands: ["move --workspace 4"]
     match:
-      - window_process: { regex: "zotero" }
+      - window_process: { regex: "Codium" }
+      - window_process: { regex: "Cursor" }
+      - window_process: { regex: "VScode" }
+      - window_process: { regex: "Zotero" }
   - commands: ["move --workspace 5"]
     match:
       - window_process: { regex: "slack" }
@@ -104,12 +119,12 @@ window_rules:
   - commands: ["move --workspace 6"]
     match:
       - window_process: { regex: "calibre" }
+  - commands: ["set-tiling"]
+    match:
+      - window_class: { regex: "org.wezfurlong.wezterm" }
   - commands: ["set-floating"]
     match:
-      - window_title:
-          {
-            regex: "Settings|Control Panel|Everything|ShareX",
-          }
+      - window_title: { regex: "Settings|Control Panel|Everything|ShareX" }
       - window_class: { regex: "CabinetWClass" }
       - window_process: { regex: "Photos|ebook-viewer" }
   - commands: ["ignore"]
@@ -129,7 +144,7 @@ window_rules:
       # Custom process rules
       - window_process: { regex: "Taskmgr|ScreenClippingHost" }
       - window_title: { regex: "Run" }
-
+      - window_class: { equals: "#32770" }
 
 binding_modes:
   - name: "resize"
@@ -149,15 +164,17 @@ binding_modes:
       - commands: ["wm-disable-binding-mode --name pause"]
         bindings: ["alt+shift+p"]
 
-
 ## GENERAL KEYBINDS
 
 keybindings:
   - commands: ["move --direction left"]
-    bindings: ["alt+shift+a"]
+    bindings: ["alt+shift+h"]
 
   - commands: ["move --direction right"]
-    bindings: ["alt+shift+s"]
+    bindings: ["alt+shift+l"]
+
+  # - commands: ["move --direction top"]
+  #   bindings: ["alt+shift+k"]
 
   - commands: ["toggle-minimized"]
     bindings: ["alt+e"]
@@ -183,24 +200,28 @@ keybindings:
   - commands: ["wm-exit", "shell-exec --hide-window taskKill /IM zebar.exe"]
     bindings: ["alt+shift+e"]
 
-  - commands: ["wm-reload-config", "shell-exec --hide-window taskKill /IM zebar.exe", "shell-exec --hide-window %userprofile%/.glzr/zebar/start.bat"]
+  - commands:
+      [
+        "wm-reload-config",
+        "shell-exec --hide-window taskKill /IM zebar.exe",
+        "shell-exec --hide-window %userprofile%/.glzr/zebar/start.bat",
+      ]
     bindings: ["alt+shift+r"]
-
 
   ## CUSTOM KEYBINDS
 
-  - commands: ["shell-exec wt"]
-    bindings: ["alt+x"]
+  # - commands: ["shell-exec wezterm-gui.exe"]
+  #   bindings: ["alt+x"]
+  #
+  # - commands: ["shell-exec wt -p 'Debian'"]
+  #   bindings: ["alt+shift+x"]
 
-  - commands: ['shell-exec wt -p "Git Bash"']
-    bindings: ["alt+shift+x"]
-
-  - commands:
-      [
-        "focus --workspace 3",
-        "shell-exec %LOCALAPPDATA%/Programs/obsidian/Obsidian.exe",
-      ]
-    bindings: ["alt+shift+o"]
+  # - commands:
+  #     [
+  #       "focus --workspace 3",
+  #       "shell-exec %LOCALAPPDATA%/Programs/obsidian/Obsidian.exe",
+  #     ]
+  #   bindings: ["alt+shift+o"]
 
   ## WORKSPACE MANAGEMENT
 
