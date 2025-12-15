@@ -18,8 +18,8 @@ general:
   show_all_in_taskbar: true
 
   cursor_jump:
-    enabled: false
-    trigger: "monitor_focus" # monitor_focus, window_focus
+    enabled: true
+    trigger: "window_focus" # monitor_focus, window_focus
 
 gaps:
   scale_with_dpi: true
@@ -167,6 +167,15 @@ binding_modes:
 ## GENERAL KEYBINDS
 
 keybindings:
+  - commands: ["focus --direction left"]
+    bindings: ["alt+h", "alt+left"]
+  - commands: ["focus --direction right"]
+    bindings: ["alt+l", "alt+right"]
+  # - commands: ['focus --direction up']
+  #   bindings: ['alt+k', 'alt+up']
+  # - commands: ['focus --direction down']
+  #   bindings: ['alt+j', 'alt+down']
+
   - commands: ["move --direction left"]
     bindings: ["alt+shift+h"]
 
