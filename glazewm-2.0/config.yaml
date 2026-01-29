@@ -145,6 +145,9 @@ window_rules:
       - window_process: { regex: "Taskmgr|ScreenClippingHost" }
       - window_title: { regex: "Run" }
       - window_class: { equals: "#32770" }
+      - window_title: { regex: "Settings|Control Panel|Everything|ShareX" }
+      - window_class: { regex: "CabinetWClass" }
+      - window_process: { regex: "Photos|ebook-viewer|Windscribe" }
 
 binding_modes:
   - name: "resize"
@@ -168,9 +171,9 @@ binding_modes:
 
 keybindings:
   - commands: ["focus --direction left"]
-    bindings: ["alt+h", "alt+left"]
+    bindings: ["alt+h"]
   - commands: ["focus --direction right"]
-    bindings: ["alt+l", "alt+right"]
+    bindings: ["alt+l"]
   # - commands: ['focus --direction up']
   #   bindings: ['alt+k', 'alt+up']
   # - commands: ['focus --direction down']
@@ -215,7 +218,7 @@ keybindings:
         "shell-exec --hide-window taskKill /IM zebar.exe",
         "shell-exec --hide-window %userprofile%/.glzr/zebar/start.bat",
       ]
-    bindings: ["alt+shift+r"]
+    bindings: ["alt+shift+escape"]
 
   ## CUSTOM KEYBINDS
 
