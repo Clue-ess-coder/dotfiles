@@ -9,8 +9,6 @@ config = wezterm.config_builder()
 -- 	window:gui_window():maximize()
 -- end)
 
-local config = {}
-
 config.default_prog = { "pwsh.exe", "-NoLogo" }
 
 -- LAUNCH MENU CONFIGURATION
@@ -55,18 +53,47 @@ config.default_cursor_style = "BlinkingBlock"
 config.cursor_blink_rate = 0
 
 config.use_dead_keys = false
-config.scrollback_lines = 5000
+config.scrollback_lines = 3000
 config.automatically_reload_config = true
 
-config.enable_tab_bar = false
-config.tab_bar_at_bottom = false
+config.enable_tab_bar = true
+config.tab_bar_at_bottom = true
 config.use_fancy_tab_bar = false
 config.show_tab_index_in_tab_bar = false
 config.window_decorations = "NONE | RESIZE"
 config.window_close_confirmation = "NeverPrompt"
 
+function tab_title(tab_info)
+	local title = tab_info.tab_title
+	if title and #title > 0 then
+		return title
+	end
+	return tab_info.active_pane.title
+end
+
+wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_width)
+	local title = tab_title(tab)
+	if tab.is_active then
+		return {
+			{ Background = { Color = "cyan" } },
+			{ Text = " " .. title .. " " },
+		}
+	end
+	if tab.is_last_active then
+		return {
+			{ Background = { Color = "green" } },
+			{ Text = " " .. title .. "*" },
+		}
+	end
+	return title
+end)
+
 -- KEYBINDS
-config.leader = { key = " ", mods = "CTRL", timeout_milliseconds = 2000 }
+config.leader = {
+	key = " ",
+	mods = "CTRL",
+	timeout_milliseconds = 2000,
+}
 
 config.keys = {
 	-- VI MODE
@@ -79,7 +106,7 @@ config.keys = {
 	{
 		key = "\\",
 		mods = "CTRL",
-		action = wezterm.action.SplitPane({
+		action = act.SplitPane({
 			direction = "Right",
 			size = { Percent = 50 },
 		}),
@@ -87,7 +114,7 @@ config.keys = {
 	{
 		key = "-",
 		mods = "CTRL",
-		action = wezterm.action.SplitPane({
+		action = act.SplitPane({
 			direction = "Down",
 			size = { Percent = 50 },
 		}),
@@ -110,7 +137,7 @@ config.keys = {
 	{
 		key = "l",
 		mods = "CTRL|ALT",
-		action = act.ActivatePaneDirection("Left"),
+		action = act.ActivatePaneDirection("Right"),
 	},
 	{
 		key = "h",
