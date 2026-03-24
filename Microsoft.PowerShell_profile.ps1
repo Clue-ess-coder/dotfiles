@@ -1,5 +1,4 @@
-### PowerShell Profile
-### Version 2.0 - Refactored by Clue-ess-coder 🙂
+### PowerShell Profile ### Version 2.0 - Refactored by Clue-ess-coder 🙂
 
 $isAdmin = ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
 function prompt {
@@ -46,10 +45,7 @@ function Test-CommandExists {
 }
 
 # Editor Configuration
-$EDITOR = if (Test-CommandExists nvim) { 'nvim' }
-         elseif (Test-CommandExists code) { 'codium' }
-         else { 'notepad' }
-Set-Alias -Name vim -Value $EDITOR
+Set-Alias -Name vim -Value "nvim"
 
 function Edit-Profile {
     vim $PROFILE
@@ -164,10 +160,11 @@ function y {
     Remove-Item -Path $tmp
 }
 
-function init {
-    Import-Module -Name Terminal-Icons
+# function init {
+#     Import-Module -Name Terminal-Icons
+#
+#     oh-my-posh init pwsh --config 'C:\Users\Abdul-Hameed\AppData\Local\Programs\oh-my-posh\themes\tonybaloney.omp.json' | Invoke-Expression
+# }
 
-    oh-my-posh init pwsh --config 'C:\Users\Abdul-Hameed\AppData\Local\Programs\oh-my-posh\themes\tonybaloney.omp.json' | Invoke-Expression
-}
-
+Set-PSReadLineOption -EditMode vi
 Invoke-Expression (& { (zoxide init --cmd cd powershell | Out-String) })
