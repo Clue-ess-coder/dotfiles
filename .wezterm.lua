@@ -34,19 +34,19 @@ config.wsl_domains = {
 
 -- LAUNCH SIZE (commented out since I use Glazewm)
 config.initial_cols = 120
-config.initial_rows = 28
+config.initial_rows = 30
 
 config.front_end = "OpenGL"
 config.term = "xterm-256color"
 config.max_fps = 144
 config.prefer_egl = true
 config.animation_fps = 1
-config.color_scheme = "s3r0 modified (terminal.sexy)"
-config.window_background_opacity = 0.8
+config.color_scheme = "iceberg-dark"
+config.window_background_opacity = 0.7
 config.win32_system_backdrop = "Acrylic"
 
-config.font = wezterm.font("Reddit Mono")
-config.font_size = 12
+config.font = wezterm.font("Monaspace Neon NF")
+config.font_size = 11
 config.line_height = 1
 
 config.default_cursor_style = "BlinkingBlock"
@@ -56,37 +56,43 @@ config.use_dead_keys = false
 config.scrollback_lines = 3000
 config.automatically_reload_config = true
 
-config.enable_tab_bar = true
-config.tab_bar_at_bottom = true
+config.enable_scroll_bar = true
+config.enable_tab_bar = false
+config.tab_bar_at_bottom = false
 config.use_fancy_tab_bar = false
+config.tab_max_width = 25
 config.show_tab_index_in_tab_bar = false
-config.window_decorations = "NONE | RESIZE"
+config.switch_to_last_active_tab_when_closing_tab = true
+
+config.audible_bell = "Disabled"
+-- config.window_decorations = "TITLE | RESIZE"
 config.window_close_confirmation = "NeverPrompt"
 
-function tab_title(tab_info)
-	local title = tab_info.tab_title
-	if title and #title > 0 then
-		return title
-	end
-	return tab_info.active_pane.title
-end
-
-wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_width)
-	local title = tab_title(tab)
-	if tab.is_active then
-		return {
-			{ Background = { Color = "cyan" } },
-			{ Text = " " .. title .. " " },
-		}
-	end
-	if tab.is_last_active then
-		return {
-			{ Background = { Color = "green" } },
-			{ Text = " " .. title .. "*" },
-		}
-	end
-	return title
-end)
+-- function tab_title(tab_info)
+-- 	local title = tab_info.tab_title
+-- 	if title and #title > 0 then
+-- 		return title
+-- 	end
+-- 	return tab_info.active_pane.title
+-- end
+--
+-- wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_width)
+-- 	local title = tab_title(tab)
+-- 	if tab.is_active then
+-- 		return {
+-- 			{ Background = { Color = "#c9efe9" } },
+-- 			{ Foreground = { Color = "#141414" } },
+-- 			{ Text = " " .. title .. " " },
+-- 		}
+-- 	end
+-- 	if tab.is_last_active then
+-- 		return {
+-- 			{ Background = { Color = "green" } },
+-- 			{ Text = " " .. title .. "*" },
+-- 		}
+-- 	end
+-- 	return title
+-- end)
 
 -- KEYBINDS
 config.leader = {
@@ -98,14 +104,14 @@ config.leader = {
 config.keys = {
 	-- VI MODE
 	{
-		key = "[",
-		mods = "LEADER",
+		key = "Enter",
+		mods = "ALT|SHIFT",
 		action = act.ActivateCopyMode,
 	},
 	-- PANES AND TABS
 	{
-		key = "\\",
-		mods = "CTRL",
+		key = "+",
+		mods = "ALT|SHIFT",
 		action = act.SplitPane({
 			direction = "Right",
 			size = { Percent = 50 },
@@ -113,16 +119,16 @@ config.keys = {
 	},
 	{
 		key = "-",
-		mods = "CTRL",
+		mods = "ALT|SHIFT",
 		action = act.SplitPane({
 			direction = "Down",
 			size = { Percent = 50 },
 		}),
 	},
 	{
-		key = "k",
+		key = "h",
 		mods = "CTRL|ALT",
-		action = act.ActivatePaneDirection("Up"),
+		action = act.ActivatePaneDirection("Left"),
 	},
 	{
 		key = "j",
@@ -130,9 +136,9 @@ config.keys = {
 		action = act.ActivatePaneDirection("Down"),
 	},
 	{
-		key = "h",
+		key = "k",
 		mods = "CTRL|ALT",
-		action = act.ActivatePaneDirection("Left"),
+		action = act.ActivatePaneDirection("Up"),
 	},
 	{
 		key = "l",
@@ -159,26 +165,26 @@ config.keys = {
 		mods = "CTRL|SHIFT",
 		action = act.AdjustPaneSize({ "Right", 5 }),
 	},
-	{
-		key = "c",
-		mods = "LEADER",
-		action = act.SpawnTab("CurrentPaneDomain"),
-	},
-	{
-		key = "p",
-		mods = "LEADER",
-		action = act.ActivateTabRelative(-1),
-	},
-	{
-		key = "n",
-		mods = "LEADER",
-		action = act.ActivateTabRelative(1),
-	},
-	{
-		key = "w",
-		mods = "CTRL",
-		action = act.CloseCurrentTab({ confirm = false }),
-	},
+	-- {
+	-- 	key = "c",
+	-- 	mods = "LEADER",
+	-- 	action = act.SpawnTab("CurrentPaneDomain"),
+	-- },
+	-- {
+	-- 	key = "p",
+	-- 	mods = "LEADER",
+	-- 	action = act.ActivateTabRelative(-1),
+	-- },
+	-- {
+	-- 	key = "n",
+	-- 	mods = "LEADER",
+	-- 	action = act.ActivateTabRelative(1),
+	-- },
+	-- {
+	-- 	key = "w",
+	-- 	mods = "CTRL",
+	-- 	action = act.CloseCurrentTab({ confirm = false }),
+	-- },
 	{
 		key = "x",
 		mods = "CTRL",
@@ -187,12 +193,12 @@ config.keys = {
 }
 
 -- CYCLE TABS
-for i = 1, 6 do
-	table.insert(config.keys, {
-		key = tostring(i),
-		mods = "LEADER",
-		action = act.ActivateTab(i - 1),
-	})
-end
+-- for i = 1, 6 do
+-- 	table.insert(config.keys, {
+-- 		key = tostring(i),
+-- 		mods = "LEADER",
+-- 		action = act.ActivateTab(i - 1),
+-- 	})
+-- end
 
 return config
