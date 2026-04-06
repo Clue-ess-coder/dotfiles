@@ -187,7 +187,7 @@ config.keys = {
 	-- },
 	{
 		key = "x",
-		mods = "CTRL",
+		mods = "CTRL|SHIFT",
 		action = act.CloseCurrentPane({ confirm = false }),
 	},
 }
