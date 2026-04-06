@@ -118,7 +118,7 @@ config.keys = {
 		}),
 	},
 	{
-		key = "-",
+		key = "_",
 		mods = "ALT|SHIFT",
 		action = act.SplitPane({
 			direction = "Down",
@@ -165,26 +165,26 @@ config.keys = {
 		mods = "CTRL|SHIFT",
 		action = act.AdjustPaneSize({ "Right", 5 }),
 	},
-	-- {
-	-- 	key = "c",
-	-- 	mods = "LEADER",
-	-- 	action = act.SpawnTab("CurrentPaneDomain"),
-	-- },
-	-- {
-	-- 	key = "p",
-	-- 	mods = "LEADER",
-	-- 	action = act.ActivateTabRelative(-1),
-	-- },
-	-- {
-	-- 	key = "n",
-	-- 	mods = "LEADER",
-	-- 	action = act.ActivateTabRelative(1),
-	-- },
-	-- {
-	-- 	key = "w",
-	-- 	mods = "CTRL",
-	-- 	action = act.CloseCurrentTab({ confirm = false }),
-	-- },
+	{
+		key = "|",
+		mods = "ALT|SHIFT",
+		action = act.SpawnTab("CurrentPaneDomain"),
+	},
+	{
+		key = "p",
+		mods = "LEADER",
+		action = act.ActivateTabRelative(-1),
+	},
+	{
+		key = "n",
+		mods = "LEADER",
+		action = act.ActivateTabRelative(1),
+	},
+	{
+		key = "w",
+		mods = "CTRL",
+		action = act.CloseCurrentTab({ confirm = false }),
+	},
 	{
 		key = "x",
 		mods = "CTRL|SHIFT",
