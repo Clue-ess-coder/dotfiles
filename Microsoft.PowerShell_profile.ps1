@@ -160,6 +160,12 @@ function y {
     Remove-Item -Path $tmp
 }
 
+function Get-ModifiedDate {
+    param([string]$Path)
+    (Get-Item $Path).LastWriteTime.ToString("yyyy-MM-dd HH:mm:ss")
+}
+Set-Alias gmd Get-ModifiedDate
+
 # function init {
 #     Import-Module -Name Terminal-Icons
 #
