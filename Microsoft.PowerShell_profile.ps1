@@ -1,4 +1,5 @@
-### PowerShell Profile ### Version 2.0 - Refactored by Clue-ess-coder 🙂
+### PowerShell Profile
+### Version 2.0 - Refactored by Clue-ess-coder ­ƒÖé
 
 $isAdmin = ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
 function prompt {
@@ -119,11 +120,11 @@ function flushdns {
 # Clipboard Utilities
 
 # Enhanced PowerShell Experience
-Set-PSReadLineOption -Colors @{
-    Command = 'Yellow'
-    Parameter = 'Green'
-    String = 'DarkCyan'
-}
+# Set-PSReadLineOption -Colors @{
+#     Command = 'Yellow'
+#     Parameter = 'Green'
+#     String = 'DarkCyan'
+# }
 
 function egc {
     vim "C:\Users\Abdul-Hameed\.glzr\glazewm\config.yaml"
@@ -172,5 +173,22 @@ Set-Alias gmd Get-ModifiedDate
 #     oh-my-posh init pwsh --config 'C:\Users\Abdul-Hameed\AppData\Local\Programs\oh-my-posh\themes\tonybaloney.omp.json' | Invoke-Expression
 # }
 
-Set-PSReadLineOption -EditMode vi
+Import-Module -Name Terminal-Icons -ErrorAction SilentlyContinue
+
+Set-PSReadLineOption -EditMode Vi
+# Set-PSReadLineOption -PredictionSource HistoryAndPlugin
+# Set-PSReadLineOption -PredictionViewStyle ListView
+Set-PSReadLineOption -BellStyle None
+
+Set-PSReadLineKeyHandler -Chord "Alt+j" -Function ViCommandMode
+Set-PSReadLineKeyHandler -Chord "Alt+l" -Function AcceptSuggestion
+Set-PSReadlineKeyHandler -Key Enter -Function ValidateAndAcceptLine
+
+## carapace Shenanigans
+$env:CARAPACE_BRIDGES = 'zsh,fish,bash,inshellisense' # optional
+Set-PSReadLineOption -Colors @{ "Selection" = "`e[7m" }
+Set-PSReadlineKeyHandler -Key Tab -Function MenuComplete
+carapace _carapace | Out-String | Invoke-Expression
+
 Invoke-Expression (& { (zoxide init --cmd cd powershell | Out-String) })
+
