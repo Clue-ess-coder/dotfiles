@@ -9,9 +9,11 @@ return {
       "lua",
       -- "luadoc",
       "markdown",
-      -- "markdown_inline",
-      -- "query",
+      "markdown_inline",
+      "query",
       "vim",
+      "yaml",
+      "html",
       -- "vimdoc",
     }
 
