@@ -7,12 +7,12 @@ return {
     treesitter.setup()
     treesitter.install {
       "lua",
-      "luadoc",
+      -- "luadoc",
       "markdown",
-      "markdown_inline",
-      "query",
+      -- "markdown_inline",
+      -- "query",
       "vim",
-      "vimdoc",
+      -- "vimdoc",
     }
 
     vim.api.nvim_create_autocmd("FileType", {

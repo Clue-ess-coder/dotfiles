@@ -61,14 +61,14 @@ vim.api.nvim_create_autocmd("TextYankPost", {
   end,
 })
 
-vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
-  group = vim.api.nvim_create_augroup("clear_cmdline", { clear = true }),
-  callback = function()
-    vim.defer_fn(function()
-      vim.cmd 'echo ""'
-    end, 6000)
-  end,
-})
+-- vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+--   group = vim.api.nvim_create_augroup("clear_cmdline", { clear = true }),
+--   callback = function()
+--     vim.defer_fn(function()
+--       vim.cmd 'echo ""'
+--     end, 6000)
+--   end,
+-- })
 
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "markdown",
