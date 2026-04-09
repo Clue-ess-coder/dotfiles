@@ -14,7 +14,7 @@ vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist)
 
 vim.keymap.set("n", "<C-a>", "ggVG", { desc = "Select All" })
 vim.keymap.set({ "n", "i" }, "<A-j>", "<C-c>")
-vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
+vim.keymap.set("n", "<A-j>", "<cmd>nohlsearch<CR>")
 
 vim.keymap.set("n", "<leader>rl", "<cmd>source ~/.config/nvim/init.lua<cr>")
 vim.keymap.set("n", "<leader><leader>", function()
