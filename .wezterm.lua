@@ -1,6 +1,6 @@
 local wezterm = require("wezterm")
 local act = wezterm.action
-config = wezterm.config_builder()
+local config = wezterm.config_builder()
 -- local mux = wezterm.mux
 
 -- START TERMINAL MAXIMIZED
@@ -96,7 +96,7 @@ config.window_close_confirmation = "NeverPrompt"
 
 -- KEYBINDS
 config.leader = {
-	key = " ",
+	key = "s",
 	mods = "CTRL",
 	timeout_milliseconds = 2000,
 }
@@ -104,8 +104,8 @@ config.leader = {
 config.keys = {
 	-- VI MODE
 	{
-		key = "Enter",
-		mods = "ALT|SHIFT",
+		key = "[",
+		mods = "LEADER",
 		action = act.ActivateCopyMode,
 	},
 	-- PANES AND TABS
@@ -166,8 +166,8 @@ config.keys = {
 		action = act.AdjustPaneSize({ "Right", 5 }),
 	},
 	{
-		key = "|",
-		mods = "ALT|SHIFT",
+		key = "\\",
+		mods = "LEADER",
 		action = act.SpawnTab("CurrentPaneDomain"),
 	},
 	{
@@ -186,8 +186,8 @@ config.keys = {
 		action = act.CloseCurrentTab({ confirm = false }),
 	},
 	{
-		key = "x",
-		mods = "CTRL|SHIFT",
+		key = "c",
+		mods = "LEADER",
 		action = act.CloseCurrentPane({ confirm = false }),
 	},
 }
