@@ -28,9 +28,11 @@ return {
     end,
     formatters_by_ft = {
       lua = { "stylua" },
-      -- Example: run isort then black on python files
-      -- python = { "isort", "black" },
-
+      javascript = { "biome", "biome-organize-imports" },
+      javascriptreact = { "biome", "biome-organize-imports" },
+      typescript = { "biome", "biome-organize-imports" },
+      typescriptreact = { "biome", "biome-organize-imports" },
+      go = { "goimports"},
       -- Use "_" as a fallback for all filetypes that don't have a formatter
       -- ["_"] = { "trim_whitespace" },
     },
