@@ -110,16 +110,16 @@ config.keys = {
 	},
 	-- PANES AND TABS
 	{
-		key = "+",
-		mods = "ALT|SHIFT",
+		key = "=",
+		mods = "LEADER",
 		action = act.SplitPane({
 			direction = "Right",
 			size = { Percent = 50 },
 		}),
 	},
 	{
-		key = "_",
-		mods = "ALT|SHIFT",
+		key = "-",
+		mods = "LEADER",
 		action = act.SplitPane({
 			direction = "Down",
 			size = { Percent = 50 },
@@ -182,7 +182,7 @@ config.keys = {
 	},
 	{
 		key = "w",
-		mods = "CTRL",
+		mods = "LEADER",
 		action = act.CloseCurrentTab({ confirm = false }),
 	},
 	{
