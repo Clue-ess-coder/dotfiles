@@ -32,7 +32,14 @@ return {
       javascriptreact = { "biome", "biome-organize-imports" },
       typescript = { "biome", "biome-organize-imports" },
       typescriptreact = { "biome", "biome-organize-imports" },
-      go = { "goimports"},
+      go = { "goimports" },
+      css = { "prettierd" },
+      html = { "prettierd" },
+      json = { "prettierd" },
+      yaml = { "prettierd" },
+      markdown = { "prettierd" },
+      python = { "isort", "black" },
+
       -- Use "_" as a fallback for all filetypes that don't have a formatter
       -- ["_"] = { "trim_whitespace" },
     },
