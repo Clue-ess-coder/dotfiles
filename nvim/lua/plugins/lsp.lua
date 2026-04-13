@@ -38,8 +38,12 @@ return {
     })
 
     vim.diagnostic.config {
-      severity_sort = true,
+      virtual_text = true,
       float = { border = "rounded" },
+      signs = true,
+      underline = true,
+      update_in_insert = false,
+      severity_sort = true,
     }
 
     -- ── Server definitions ──────────────────────────────────────────────
