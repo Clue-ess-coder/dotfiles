@@ -19,14 +19,15 @@ return {
         end
 
         local builtin = require "telescope.builtin"
-        map("gr", builtin.lsp_references, { desc = "Goto References" })
-        map("gd", builtin.lsp_definitions, { desc = "Goto Definition" })
-        map("gO", builtin.lsp_document_symbols, { desc = "Document Symbols" })
-        map("K", vim.lsp.buf.hover, { desc = "Hover Documentation" })
-        map("gi", vim.lsp.buf.implementation, { desc = "Go to implementation" })
-        map("gD", vim.lsp.buf.declaration, { desc = "Go to declaration" })
-        map("<leader>ca", vim.lsp.buf.code_action, { desc = "Code Action" })
-        map("<leader>rn", vim.lsp.buf.rename, { desc = "Rename" })
+
+        map("gr", builtin.lsp_references, "Goto References")
+        map("gd", builtin.lsp_definitions, "Goto Definition")
+        map("g0", builtin.lsp_document_symbols, "Document Symbols")
+        map("gri", builtin.lsp_implementations, "Goto Implementations")
+        vim.keymap.set("n", "K", vim.lsp.buf.hover, { desc = "LSP: Hover Documentation" })
+        vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { desc = "LSP: Goto declaration" })
+        vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "LSP: Code Action" })
+        vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { desc = "LSP: Rename" })
 
         local client = vim.lsp.get_client_by_id(event.data.client_id)
         if client and client:supports_method "textDocument/documentHighlight" then
@@ -122,8 +123,8 @@ return {
     vim.list_extend(ensure_installed, {
       -- formatters Mason installs but lspconfig doesn't know about
       "stylua",
-      -- "black",
-      -- "isort",
+      "black",
+      "isort",
       "goimports",
       "prettierd",
     })
