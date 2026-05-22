@@ -20,14 +20,29 @@ return {
 
         local builtin = require "telescope.builtin"
 
-        map("gr", builtin.lsp_references, "Goto References")
         map("gd", builtin.lsp_definitions, "Goto Definition")
-        map("g0", builtin.lsp_document_symbols, "Document Symbols")
-        map("gri", builtin.lsp_implementations, "Goto Implementations")
-        vim.keymap.set("n", "K", vim.lsp.buf.hover, { desc = "LSP: Hover Documentation" })
-        vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { desc = "LSP: Goto declaration" })
-        vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "LSP: Code Action" })
-        vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { desc = "LSP: Rename" })
+        map("gD", vim.lsp.buf.declaration, "Goto Declaration")
+        map("gr", builtin.lsp_references, "Goto References")
+        map("gi", builtin.lsp_implementations, "Goto Implementations")
+        map("gy", builtin.lsp_type_definitions, "Type Definition")
+
+        map("<leader>ls", builtin.lsp_document_symbols, "Document Symbols")
+        map("<leader>lS", builtin.lsp_workspace_symbols, "Workspace Symbols")
+
+        map("<leader>ca", vim.lsp.buf.code_action, "Code actions")
+        map("<leader>cr", vim.lsp.buf.rename, "Code: Rename")
+
+        map("<C-k>", vim.lsp.buf.signature_help, "Signature Help")
+        map("K", function()
+          vim.lsp.buf.hover { border = "rounded", max_height = 25, max_width = 120 }
+        end, "Hover")
+
+        map("[d", function()
+          vim.diagnostic.jump { count = -1 }
+        end, "Prev Diagnostic")
+        map("]d", function()
+          vim.diagnostic.jump { count = 1 }
+        end, "Next Diagnostic")
 
         local client = vim.lsp.get_client_by_id(event.data.client_id)
         if client and client:supports_method "textDocument/documentHighlight" then
@@ -40,7 +55,7 @@ return {
 
     vim.diagnostic.config {
       virtual_text = true,
-      float = { border = "rounded" },
+      float = { border = "rounded", source = true, header = "", prefix = "" },
       signs = true,
       underline = true,
       update_in_insert = false,

@@ -1,7 +1,7 @@
 return {
   "saghen/blink.cmp",
   -- optional: provides snippets for the snippet source
-  dependencies = { "rafamadriz/friendly-snippets" },
+  dependencies = { "saghen/blink.lib", "rafamadriz/friendly-snippets" },
 
   -- use a release tag to download pre-built binaries
   version = "1.*",
@@ -19,18 +19,47 @@ return {
       nerd_font_variant = "mono",
     },
 
-    completion = {
-      menu = { border = "rounded" },
-      documentation = {
-        window = {
-          border = "rounded",
+    sources = {
+      default = { "lazydev", "lsp", "path", "buffer", "snippets" },
+      providers = {
+        lazydev = {
+          name = "LazyDev",
+          module = "lazydev.integrations.blink",
+          score_offset = 100,
         },
-        auto_show = false,
+        cmdline = {
+          min_keyword_length = 2,
+        },
       },
     },
 
-    sources = {
-      default = { "lsp", "path", "snippets", "buffer" },
+    completion = {
+      menu = {
+        border = "rounded",
+        scrolloff = 1,
+        scrollbar = false,
+        auto_show = true,
+        draw = {
+          padding = 1,
+          gap = 1,
+          columns = {
+            { "kind_icon" },
+            { "label", "label_description", gap = 1 },
+            { "kind" },
+            { "source_name" },
+          },
+        },
+      },
+
+      documentation = {
+        window = {
+          border = "rounded",
+          scrollbar = false,
+          winhighlight = "Normal:BlinkCmpDoc,FloatBorder:BlinkCmpDocBorder,EndOfBuffer:BlinkCmpDoc",
+        },
+        auto_show = true,
+        auto_show_delay_ms = 500,
+      },
     },
 
     fuzzy = { implementation = "prefer_rust_with_warning" },

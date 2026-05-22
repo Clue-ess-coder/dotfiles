@@ -12,8 +12,8 @@ return {
             ["<C-p>"] = actions.move_selection_previous, -- move to prev result
             ["<C-n>"] = actions.move_selection_next, -- move to next result
             ["<C-q>"] = actions.send_selected_to_qflist + actions.open_qflist, -- send selected to quickfixlist
-            ["<c-d>"] = actions.delete_buffer + actions.move_to_top, -- delete buffer and move to top of list
-            ["<c-w>"] = actions.delete_buffer, -- delete buffer alone
+            ["<C-d>"] = actions.delete_buffer + actions.move_to_top, -- delete buffer and move to top of list
+            ["<C-w>"] = actions.delete_buffer, -- delete buffer alone
             ["<A-j>"] = actions.close, -- close buffer
           },
         },
@@ -21,45 +21,46 @@ return {
     }
 
     local builtin = require "telescope.builtin"
-    vim.keymap.set("n", "<leader>fk", builtin.keymaps, { desc = "Telescope keymaps" })
-    vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Telescope find files" })
-    vim.keymap.set("n", "<leader>fo", builtin.oldfiles, { desc = "Telescope old files" })
-    vim.keymap.set("n", "<leader>fs", builtin.builtin, { desc = "Telescope builtin commands" })
-    vim.keymap.set("n", "<leader>fq", builtin.quickfix, { desc = "Telescope quickfix list" })
-    vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Telescope help tags" })
-    vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Telescope buffers" })
+    vim.keymap.set("n", "<leader><leader>", builtin.find_files, { desc = "Telescope find files" })
+    vim.keymap.set("n", "<leader>e", builtin.buffers, { desc = "Telescope buffers" })
 
-    vim.keymap.set("n", "<leader>fg", function()
-      builtin.grep_string { search = vim.fn.input "Grep > " }
-    end, { desc = "Grep in Current File" })
+    vim.keymap.set("n", "<leader>sk", builtin.keymaps, { desc = "Telescope keymaps" })
+    vim.keymap.set("n", "<leader>so", builtin.oldfiles, { desc = "Telescope old files" })
+    vim.keymap.set("n", "<leader>sc", builtin.builtin, { desc = "Telescope builtin commands" })
+    vim.keymap.set("n", "<leader>sq", builtin.quickfix, { desc = "Telescope quickfix list" })
+    vim.keymap.set("n", "<leader>sh", builtin.help_tags, { desc = "Telescope help tags" })
 
-    vim.keymap.set("n", "<leader>fc", function()
-      local filename_without_extension = vim.fn.expand "%:t:r"
-      builtin.grep_string { search = filename_without_extension }
-    end, { desc = "Find current file: " })
-
-    -- Grep current string (for when gd doesn't work)
-    -- vim.keymap.set("n", "<leader>fs", function()
-    --   builtin.grep_string {}
-    -- end, { desc = "Find current string: " })
-
-    vim.keymap.set("n", "<leader>fi", function()
-      builtin.find_files { cwd = "~/.config/nvim/" }
-    end, { desc = "Find files in Neovim config" })
-
-    vim.keymap.set("n", "<leader>s/", function()
-      builtin.live_grep {
-        grep_open_files = true,
-        prompt_title = "Live Grep in Open Files",
-      }
-    end, { desc = "Search in Open Files" })
-
-    vim.keymap.set("n", "<leader>/", function()
+    vim.keymap.set("n", "<leader>sb", function()
       -- You can pass additional configuration to Telescope to change the theme, layout, etc.
       builtin.current_buffer_fuzzy_find(require("telescope.themes").get_dropdown {
         winblend = 10,
         previewer = false,
       })
     end, { desc = "Fuzzily search in current buffer" })
+
+    vim.keymap.set("n", "<leader>sB", function()
+      builtin.live_grep {
+        grep_open_files = true,
+        prompt_title = "Live grep in all open files",
+      }
+    end, { desc = "Fuzzily Search in all open files" })
+
+    -- vim.keymap.set("n", "<leader>sg", function()
+    --   builtin.grep_string { search = vim.fn.input "Grep > " }
+    -- end, { desc = "Grep in Current File" })
+    --
+    -- vim.keymap.set("n", "<leader>sw", function()
+    --   local filename_without_extension = vim.fn.expand "%:t:r"
+    --   builtin.grep_string { search = filename_without_extension }
+    -- end, { desc = "Search word" })
+
+    -- Grep current string (for when gd doesn't work)
+    -- vim.keymap.set("n", "<leader>sw", function()
+    --   builtin.grep_string {}
+    -- end, { desc = "Find current string: " })
+
+    -- vim.keymap.set("n", "<leader>fi", function()
+    --   builtin.find_files { cwd = "~/.config/nvim/" }
+    -- end, { desc = "Find files in Neovim config" })
   end,
 }

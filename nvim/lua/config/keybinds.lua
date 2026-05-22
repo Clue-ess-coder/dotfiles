@@ -17,9 +17,6 @@ vim.keymap.set({ "n", "i" }, "<A-j>", "<C-c>")
 vim.keymap.set("n", "<A-j>", "<cmd>nohlsearch<CR>")
 
 vim.keymap.set("n", "<leader>rl", "<cmd>source ~/.config/nvim/init.lua<cr>")
-vim.keymap.set("n", "<leader><leader>", function()
-  vim.cmd "so"
-end)
 
 vim.keymap.set("n", "<C-h>", "<C-w><C-h>")
 vim.keymap.set("n", "<C-l>", "<C-w><C-l>")
@@ -53,10 +50,12 @@ vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 vim.keymap.set({ "n", "v" }, "L", "$", { desc = "go to the end of the line" })
 vim.keymap.set({ "n", "v" }, "H", "^", { desc = "Go to the beginning line" })
 
+vim.keymap.set("n", "dd", '"_dd', { desc = "Delete (no yank)" })
+vim.keymap.set("n", "D", '"_D', { desc = "Delete line from cursor position (no yank)" })
 vim.keymap.set("n", "x", '"_x')
 vim.keymap.set("v", "p", '"_dP', { desc = "Paste (no yank)" })
-vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
-vim.keymap.set({ "n", "v" }, "<leader>d", '"_d', { desc = "Delete (no yank)" })
+-- vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
+-- vim.keymap.set({ "n", "v" }, "<leader>d", '"_d', { desc = "Delete (no yank)" })
 -- vim.keymap.set("x", "<leader>p", [["_dP]])
 -- vim.keymap.set("n", "<leader>Y", [["+Y]])
 
@@ -72,5 +71,5 @@ vim.keymap.set("n", "<leader>tc", ":tabclose<CR>", { desc = "Close tab" })
 
 -- Terminal Shortcuts
 -- vim.keymap.set("n", "<leader>tt", ":terminal<CR>", { desc = "Open terminal" })
-vim.keymap.set("n", "<leader>ts", ":split | terminal<CR>", { desc = "Horizontal terminal split" })
-vim.keymap.set("n", "<leader>tv", ":vsplit | terminal<CR>", { desc = "Vertical terminal split" })
+-- vim.keymap.set("n", "<leader>ts", ":split | terminal<CR>", { desc = "Horizontal terminal split" })
+-- vim.keymap.set("n", "<leader>tv", ":vsplit | terminal<CR>", { desc = "Vertical terminal split" })
