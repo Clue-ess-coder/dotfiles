@@ -1,7 +1,7 @@
 general:
   startup_commands:
     [
-      "shell-exec --hide-window %userprofile%/.glzr/zebar/start.bat",
+      # "shell-exec --hide-window %userprofile%/.glzr/zebar/start.bat",
       "shell-exec --hide-window %userprofile%/tools/gat-gwm.exe",
     ]
 
@@ -23,12 +23,13 @@ general:
 
 gaps:
   scale_with_dpi: true
-  inner_gap: "5px"
+  inner_gap: "2px"
   outer_gap:
-    top: "18px"
-    right: "5px"
-    bottom: "5px"
-    left: "5px"
+    # top: "18px"
+    top: "2px"
+    right: "2px"
+    bottom: "2px"
+    left: "2px"
 
 window_effects:
   focused_window:
@@ -209,14 +210,17 @@ keybindings:
   - commands: ["close"]
     bindings: ["alt+q"]
 
-  - commands: ["wm-exit", "shell-exec --hide-window taskKill /IM zebar.exe"]
+  # - commands: ["wm-exit", "shell-exec --hide-window taskKill /IM zebar.exe"]
+  #   bindings: ["alt+shift+e"]
+
+  - commands: ["wm-exit"]
     bindings: ["alt+shift+e"]
 
   - commands:
       [
         "wm-reload-config",
-        "shell-exec --hide-window taskKill /IM zebar.exe",
-        "shell-exec --hide-window %userprofile%/.glzr/zebar/start.bat",
+        # "shell-exec --hide-window taskKill /IM zebar.exe",
+        # "shell-exec --hide-window %userprofile%/.glzr/zebar/start.bat",
       ]
     bindings: ["alt+shift+escape"]
 
