@@ -192,6 +192,27 @@ config.keys = {
 	},
 }
 
+local copy_mode = nil
+if wezterm.gui then
+	copy_mode = wezterm.gui.default_key_tables().copy_mode
+	table.insert(copy_mode, {
+		key = "y",
+		mods = "NONE",
+		action = act.Multiple({
+			{ CopyTo = "ClipboardAndPrimarySelection" },
+			{ CopyMode = { SetSelectionMode = "Cell" } },
+		}),
+	})
+	table.insert(copy_mode, {
+		key = "y",
+		mods = "SHIFT",
+		action = act.Multiple({ { CopyTo = "ClipboardAndPrimarySelection" }, { CopyMode = "Close" } }),
+	})
+	table.insert(copy_mode, { key = "j", mods = "ALT", action = act.CopyMode("Close") })
+	table.insert(copy_mode, { key = "l", mods = "ALT", action = act.CopyMode("MoveToEndOfLineContent") })
+	table.insert(copy_mode, { key = "h", mods = "ALT", action = act.CopyMode("MoveToStartOfLineContent") })
+end
+
 -- CYCLE TABS
 -- for i = 1, 6 do
 -- 	table.insert(config.keys, {
@@ -200,5 +221,8 @@ config.keys = {
 -- 		action = act.ActivateTab(i - 1),
 -- 	})
 -- end
+config.key_tables = {
+	copy_mode = copy_mode,
+}
 
 return config
