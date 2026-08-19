@@ -14,6 +14,10 @@ config.default_prog = { "pwsh.exe", "-NoLogo" }
 -- LAUNCH MENU CONFIGURATION
 config.launch_menu = {
 	{
+		label = "Git Bash",
+		args = { "C:\\Program Files\\Git\\bin\\bash.exe", "--login", "-i" },
+	},
+	{
 		label = "WSL: Debian (Zsh)",
 		args = { "wsl.exe", "-d", "Debian" },
 	},
