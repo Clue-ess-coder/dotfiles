@@ -1,9 +1,9 @@
-# To the extent possible under law, the author(s) have dedicated all 
-# copyright and related and neighboring rights to this software to the 
-# public domain worldwide. This software is distributed without any warranty. 
-# You should have received a copy of the CC0 Public Domain Dedication along 
-# with this software. 
-# If not, see <https://creativecommons.org/publicdomain/zero/1.0/>. 
+# To the extent possible under law, the author(s) have dedicated all
+# copyright and related and neighboring rights to this software to the
+# public domain worldwide. This software is distributed without any warranty.
+# You should have received a copy of the CC0 Public Domain Dedication along
+# with this software.
+# If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
 
 # /etc/bash.bashrc: executed by bash(1) for interactive shells.
 
@@ -122,13 +122,13 @@ if [[ $iatest -gt 0 ]]; then bind "set completion-ignore-case on"; fi
 if [[ $iatest -gt 0 ]]; then bind "set show-all-if-ambiguous On"; fi
 
 # Set the default editor
-export EDITOR=nvim
-export VISUAL=nvim
+export EDITOR=vi
+export VISUAL=vi
 # alias pico='edit'
 # alias spico='sedit'
 # alias nano='edit'
 # alias snano='sedit'
-alias vim='nvim'
+# alias vim='nvim'
 
 # To have colors for ls and all grep commands such as grep, egrep and zgrep
 export CLICOLOR=1
@@ -177,9 +177,9 @@ alias cls='clear'
 alias apt-get='sudo apt-get'
 alias multitail='multitail --no-repeat -c'
 alias freshclam='sudo freshclam'
-alias vi='nvim'
+# alias vi='nvim'
 alias svi='sudo vi'
-alias vis='nvim "+set si"'
+# alias vis='nvim "+set si"'
 alias pkgi='pkg i'
 alias pkgu='pkg upgrade'
 
@@ -398,19 +398,19 @@ clip() {
 
 
 # echo help statement if 4 parameters are not entered
-# or $1 or $2 are not entered in the correct format 
+# or $1 or $2 are not entered in the correct format
 if [ -z "$1 " ] || [ -z "$2" ] || [ -z "$3" ] || [ -z "$4" ]; then
 
    #                   $1            $2         $3         $4
    echo
-   echo "     Produce a clip from youtube using"   
+   echo "     Produce a clip from youtube using"
    echo
    echo "         1 clip URL"
    echo "         2          start time, hh:mm:ss"
    echo "         3                        end time,   hh:mm:ss"
-   echo "         4                                               out_file_name.mp4" 
-   echo "      "    
-   echo " eg   "    
+   echo "         4                                               out_file_name.mp4"
+   echo "      "
+   echo " eg   "
    echo
    echo "    clip   https://www.youtube.com/watch?v=6mPxcljRRzE    00:01:56    00:02:15    out_clip.mp4"
    echo "      "
@@ -434,7 +434,7 @@ out_file_name="$4"
 #       duration_z=00:00:19
 # $4  out_file_name=out_clip.mp4
 
-# collect duration in seconds between times the two times to 
+# collect duration in seconds between times the two times to
 #   calculate our ffmpeg "-to" duration from the $start_time and $end_time
 #       reference
 #           https://unix.stackexchange.com/a/167156/46470
@@ -470,6 +470,8 @@ export TODOTXT_DEFAULT_ACTION=ls
 alias t='todo.sh -tfn'
 
 # Install Starship - curl -sS https://starship.rs/install.sh | sh
-eval "$(starship init bash)"
-eval "$(zoxide init bash)"
-eval "$(pandoc --bash-completion)"
+# eval "$(starship init bash)"
+# eval "$(zoxide init bash)"
+# eval "$(pandoc --bash-completion)"
+set -o vi
+bind 'set bell-style none'
