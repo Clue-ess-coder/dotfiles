@@ -2,6 +2,7 @@ set nocompatible
 filetype plugin indent on
 syntax enable
 
+set t_vb=
 set number
 set relativenumber
 set cursorline
