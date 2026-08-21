@@ -33,8 +33,12 @@ vim.keymap.set("n", "<c-left>", ":vertical resize +2<cr>")
 vim.keymap.set("v", "<", "<gv")
 vim.keymap.set("v", ">", ">gv")
 
+-- Fix the annoying line joining thingy
+vim.keymap.set("n", "J", "<Nop>", { noremap = true, desc = "Disable default J" })
+vim.keymap.set("n", "<Leader>j", "J", { noremap = true, desc = "Join line (default behavior)" })
+
 -- Additions from Prime
-vim.keymap.set("n", "J", "mzJ`z")
+-- vim.keymap.set("n", "J", "mzJ`z")
 vim.keymap.set("n", "<C-d>", "<C-d>zz")
 vim.keymap.set("n", "<C-u>", "<C-u>zz")
 vim.keymap.set("n", "n", "nzzzv")
