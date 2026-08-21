@@ -17,7 +17,7 @@ return {
       require("nordic").setup {
         bold_keywords = false,
         italic_comments = false,
-        transparent = { bg = true, float = false },
+        transparent = { bg = false, float = false },
         bright_border = false,
         reduced_blue = true,
         swap_backgrounds = false,
@@ -37,5 +37,38 @@ return {
   {
     "adibhanna/forest-night.nvim",
     priority = 1000,
+  },
+  {
+    "ribru17/bamboo.nvim",
+    lazy = false,
+    priority = 1000,
+    config = function()
+      require("bamboo").setup {
+        style = "multiplex",
+        transparent = false,
+      }
+      require("bamboo").load()
+    end,
+  },
+  {
+    "sainnhe/everforest",
+    lazy = false,
+    priority = 1000,
+    -- config = function ()
+    --
+    -- end
+  },
+  {
+    "marko-cerovac/material.nvim",
+    lazy = false,
+    priority = 1000,
+    config = function()
+      require("material").setup {
+        -- disable = {
+        --   background = true,
+        -- },
+      }
+      vim.g.material_style = "deep ocean"
+    end,
   },
 }
