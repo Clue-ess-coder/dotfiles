@@ -29,7 +29,7 @@ vim.o.autoread = true
 vim.o.autowrite = false
 vim.o.selection = "inclusive"
 
-vim.o.colorcolumn = "100"
+-- vim.o.colorcolumn = "100"
 
 vim.o.splitright = true
 vim.o.splitbelow = true
