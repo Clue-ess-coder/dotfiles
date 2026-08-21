@@ -49,8 +49,8 @@ config.color_scheme = "iceberg-dark"
 config.window_background_opacity = 0.7
 config.win32_system_backdrop = "Acrylic"
 
-config.font = wezterm.font("Monaspace Neon NF")
-config.font_size = 11
+config.font = wezterm.font("GoogleSansCode Nerd Font")
+config.font_size = 12
 config.line_height = 1
 
 config.default_cursor_style = "BlinkingBlock"
