@@ -13,7 +13,7 @@ return {
     -- 'super-tab' for mappings similar to vscode (tab to accept)
     -- 'enter' for enter to accept
     -- 'none' for no mappings
-    keymap = { preset = "super-tab" },
+    keymap = { preset = "enter" },
 
     appearance = {
       nerd_font_variant = "mono",
