@@ -47,8 +47,8 @@ vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 
 -- New Additions till I get to them, someday. LMAO
-vim.keymap.set({ "n", "v" }, "L", "$", { desc = "go to the end of the line" })
-vim.keymap.set({ "n", "v" }, "H", "^", { desc = "Go to the beginning line" })
+vim.keymap.set({ "n", "v" }, "gl", "$", { desc = "go to the end of the line" })
+vim.keymap.set({ "n", "v" }, "gh", "^", { desc = "Go to the beginning line" })
 
 vim.keymap.set("n", "dd", '"_dd', { desc = "Delete (no yank)" })
 vim.keymap.set("n", "D", '"_D', { desc = "Delete line from cursor position (no yank)" })
