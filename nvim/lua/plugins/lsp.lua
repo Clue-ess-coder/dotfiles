@@ -23,7 +23,7 @@ return {
         map("gd", builtin.lsp_definitions, "Goto Definition")
         map("gD", vim.lsp.buf.declaration, "Goto Declaration")
         map("gr", builtin.lsp_references, "Goto References")
-        map("gi", builtin.lsp_implementations, "Goto Implementations")
+        map("gI", builtin.lsp_implementations, "Goto Implementations")
         map("gy", builtin.lsp_type_definitions, "Type Definition")
 
         map("<leader>ls", builtin.lsp_document_symbols, "Document Symbols")
@@ -35,8 +35,11 @@ return {
         map("<C-k>", vim.lsp.buf.signature_help, "Signature Help")
         map("K", function()
           vim.lsp.buf.hover { border = "rounded", max_height = 25, max_width = 120 }
-        end, "Hover")
+        end, "Hover Information")
 
+        map("gl", function()
+          vim.diagnostic.open_float { border = "rounded", focusable = false }
+        end, "Show diagnostic details")
         map("[d", function()
           vim.diagnostic.jump { count = -1 }
         end, "Prev Diagnostic")
@@ -54,7 +57,7 @@ return {
     })
 
     vim.diagnostic.config {
-      virtual_text = true,
+      virtual_text = false,
       float = { border = "rounded", source = true, header = "", prefix = "" },
       signs = true,
       underline = true,
