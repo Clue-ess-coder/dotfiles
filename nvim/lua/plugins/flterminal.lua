@@ -7,8 +7,8 @@ local state = {
 
 local function open_floating_terminal(opts)
   opts = opts or {}
-  local width = opts.width or math.floor(vim.o.columns * 0.5)
-  local height = opts.height or math.floor(vim.o.lines * 0.5)
+  local width = opts.width or math.floor(vim.o.columns * 0.8)
+  local height = opts.height or math.floor(vim.o.lines * 0.6)
   local row = math.floor((vim.o.lines - height) / 2)
   local col = math.floor((vim.o.columns - width) / 2)
 
@@ -30,7 +30,7 @@ local function open_floating_terminal(opts)
     col = col,
     style = "minimal",
     border = "rounded",
-    title = " PowerShell ", -- Added a nice title for you
+    title = " PowerShell ",
     title_pos = "center",
   })
 
@@ -63,6 +63,5 @@ end
 
 return {
   vim.api.nvim_create_user_command("Flterm", toggle_terminal, {}),
-  -- vim.api.nvim_set_keymap("n", "<space>ft", [[:Flterm<CR>]], ),
   vim.keymap.set({ "n", "t" }, "<space>ft", toggle_terminal, { silent = true, desc = "Toggle terminal" }),
 }
