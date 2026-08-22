@@ -45,8 +45,9 @@ vim.keymap.set("n", "*", "*zzzv", { desc = "Search Word (centered)" })
 vim.keymap.set("n", "#", "#zzzv", { desc = "Search Word Back (centered)" })
 vim.keymap.set("n", "=ap", "ma=ap'a")
 
-vim.keymap.set("v", "J", "<cmd>m '>+1<CR>gv=gv<cr>")
-vim.keymap.set("v", "K", "<cmd>m '<-2<CR>gv=gv<cr>")
+-- Move Commands
+vim.keymap.set("v", "J", ":m '>+1<cr>gv=gv", { silent = true })
+vim.keymap.set("v", "K", ":m '<-2<cr>gv=gv", { silent = true })
 
 -- Line Commands
 -- vim.keymap.set({ "n", "v" }, "gl", "$", { desc = "go to the end of the line" })
