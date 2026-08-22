@@ -9,8 +9,7 @@ vim.keymap.set("n", "<leader>qq", "<cmd>qa<cr>", { desc = "Quit all" })
 
 vim.keymap.set("n", "-", "<cmd>Ex<CR>", { desc = "Open Netrw Explorer" })
 vim.keymap.set("n", "<leader>we", "<cmd>w | Ex<cr>", { desc = "Save file and open explorer" })
-
-vim.keymap.set("n", "<leader>E", vim.diagnostic.setloclist)
+vim.keymap.set("n", "<leader>cd", "<cmd>Lex<cr>", { desc = "List buffer diagnostic" })
 
 vim.keymap.set("n", "vag", "ggVG", { desc = "Select All" })
 vim.keymap.set({ "n", "i" }, "<A-j>", "<C-c>")
@@ -79,5 +78,6 @@ vim.keymap.set("n", "<leader>ts", "<cmd>split | terminal<cr>i", { desc = "Horizo
 vim.keymap.set("n", "<leader>tv", "<cmd>vsplit | terminal<cr>i", { desc = "Vertical terminal split" })
 
 -- Extras
+vim.keymap.set("n", "<leader>E", vim.diagnostic.setloclist, { desc = "List buffer diagnostic" })
 vim.keymap.set("n", ";g", "<cmd>G<cr>", { desc = "Open Git fugitive" })
 vim.keymap.set("n", ";cc", ':G commit -m "', { desc = "Git commit" })
