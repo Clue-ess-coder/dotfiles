@@ -55,38 +55,30 @@ return {
       end,
     },
     keys = {
-      -- Hunk operations under <leader>gh (git hunk)
       {
-        "<leader>ghp",
-        function()
-          require("gitsigns").preview_hunk()
-        end,
+        "<leader>gg",
+        "<cmd>Gitsigns toggle_signs<cr>",
+        desc = "Toggle Signs",
+      },
+      -- Hunk operations
+      {
+        "<leader>gp",
+        "<cmd>Gitsigns preview_hunk<cr>",
         desc = "Preview Hunk",
       },
       {
-        "<leader>ghP",
-        function()
-          require("gitsigns").preview_hunk_inline()
-        end,
+        "<leader>gP",
+        "<cmd>Gitsigns preview_hunk_inline<cr>",
         desc = "Preview Hunk Inline",
       },
       {
-        "<leader>ghs",
-        function()
-          require("gitsigns").stage_hunk()
-        end,
-        desc = "Stage Hunk",
+        "<leader>gs",
+        "<cmd>Gitsigns stage_hunk<cr>",
+        desc = "Stage/Unstage Hunk",
       },
       {
-        "<leader>ghu",
-        [[gitsigns.stage_hunk()]],
-        desc = "Undo Stage Hunk",
-      },
-      {
-        "<leader>ghr",
-        function()
-          require("gitsigns").reset_hunk()
-        end,
+        "<leader>gr",
+        "<cmd>Gitsigns reset_hunk<cr>",
         desc = "Reset Hunk",
       },
       -- Buffer operations
