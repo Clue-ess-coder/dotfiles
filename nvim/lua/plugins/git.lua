@@ -50,8 +50,8 @@ return {
           vim.keymap.set(mode, lhs, rhs, { buffer = bufnr, desc = desc })
         end
         -- Navigation
-        map("n", "]h", [[gitsigns.next_hunk()]], "Next Hunk")
-        map("n", "[h", [[gitsigns.prev_hunk()]], "Prev Hunk")
+        map("n", "]h", "<cmd>Gitsigns nav_hunk next<cr>", "Next Hunk")
+        map("n", "[h", "<cmd>Gitsigns nav_hunk prev<cr>", "Prev Hunk")
       end,
     },
     keys = {
