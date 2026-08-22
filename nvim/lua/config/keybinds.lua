@@ -77,3 +77,7 @@ vim.keymap.set("n", "<leader>tc", "<cmd>tabclose<CR>", { desc = "Close tab" })
 vim.keymap.set("n", "<leader>T", "<cmd>terminal<cr>i", { desc = "Open terminal" })
 vim.keymap.set("n", "<leader>ts", "<cmd>split | terminal<cr>i", { desc = "Horizontal terminal split" })
 vim.keymap.set("n", "<leader>tv", "<cmd>vsplit | terminal<cr>i", { desc = "Vertical terminal split" })
+
+-- Extras
+vim.keymap.set("n", ";g", "<cmd>G<cr>", { desc = "Open Git fugitive" })
+vim.keymap.set("n", ";cc", ':G commit -m "', { desc = "Git commit" })
