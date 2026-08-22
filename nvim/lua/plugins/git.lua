@@ -84,16 +84,12 @@ return {
       -- Buffer operations
       {
         "<leader>gR",
-        function()
-          require("gitsigns").reset_buffer()
-        end,
+        "<cmd>Gitsigns reset_buffer<cmd>",
         desc = "Reset Buffer",
       },
       {
         "<leader>gS",
-        function()
-          require("gitsigns").stage_buffer()
-        end,
+        "<cmd>Gitsigns stage_buffer<cr>",
         desc = "Stage Buffer",
       },
       -- Blame
