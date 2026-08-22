@@ -95,16 +95,12 @@ return {
       -- Blame
       {
         "<leader>gb",
-        function()
-          require("gitsigns").blame_line()
-        end,
-        desc = "Blame Line",
+        "<cmd>Gitsigns toggle_current_line_blame<cr>",
+        desc = "Blame current line",
       },
       {
         "<leader>gB",
-        function()
-          require("gitsigns").blame()
-        end,
+        "<cmd>Gitsigns blame<cr>",
         desc = "Blame Buffer",
       },
       -- Diff
