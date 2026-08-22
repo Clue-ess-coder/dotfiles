@@ -105,10 +105,18 @@ return {
       },
       -- Diff
       {
+        "<leader>gd",
+        "<cmd>Gitsigns diffthis<cr>",
+        desc = "Diff line",
+      },
+      {
+        "<leader>gw",
+        "<cmd>Gitsigns toggle_word_diff<cr>",
+        desc = "Toggle word diff",
+      },
+      {
         "<leader>gD",
-        function()
-          vim.cmd "Gitsigns diffthis HEAD"
-        end,
+        "<cmd>Gitsigns diffthis HEAD<cr>",
         desc = "Diff HEAD",
       },
     },
