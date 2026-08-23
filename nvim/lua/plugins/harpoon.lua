@@ -38,7 +38,7 @@ return {
     end, { desc = "Harpoon Remove" })
 
     -- Standard Harpoon UI
-    vim.keymap.set("n", "<C-e>", function()
+    vim.keymap.set("n", "<A-e>", function()
       harpoon.ui:toggle_quick_menu(harpoon:list())
     end)
 
