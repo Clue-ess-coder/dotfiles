@@ -38,12 +38,16 @@ return {
       })
     end, { desc = "Fuzzily search in current buffer" })
 
-    vim.keymap.set("n", "<leader>sB", function()
+    vim.keymap.set("n", "<leader>ss", function()
       builtin.live_grep {
         grep_open_files = true,
         prompt_title = "Live grep in all open files",
       }
     end, { desc = "Fuzzily Search in all open files" })
+
+    vim.keymap.set("n", "<leader>fi", function()
+      builtin.find_files { cwd = "~/.config/nvim/" }
+    end, { desc = "Find files in Neovim config" })
 
     -- vim.keymap.set("n", "<leader>sg", function()
     --   builtin.grep_string { search = vim.fn.input "Grep > " }
@@ -58,9 +62,5 @@ return {
     -- vim.keymap.set("n", "<leader>sw", function()
     --   builtin.grep_string {}
     -- end, { desc = "Find current string: " })
-
-    -- vim.keymap.set("n", "<leader>fi", function()
-    --   builtin.find_files { cwd = "~/.config/nvim/" }
-    -- end, { desc = "Find files in Neovim config" })
   end,
 }
