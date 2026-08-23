@@ -84,7 +84,7 @@ return {
       -- Buffer operations
       {
         "<leader>gR",
-        "<cmd>Gitsigns reset_buffer<cmd>",
+        "<cmd>Gitsigns reset_buffer<cr>",
         desc = "Reset Buffer",
       },
       {
