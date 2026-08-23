@@ -50,8 +50,8 @@ return {
           vim.keymap.set(mode, lhs, rhs, { buffer = bufnr, desc = desc })
         end
         -- Navigation
-        map("n", "]h", "<cmd>Gitsigns nav_hunk next<cr>", "Next Hunk")
-        map("n", "[h", "<cmd>Gitsigns nav_hunk prev<cr>", "Prev Hunk")
+        map("n", "]c", "<cmd>Gitsigns nav_hunk next<cr>", "Next Hunk")
+        map("n", "[c", "<cmd>Gitsigns nav_hunk prev<cr>", "Prev Hunk")
       end,
     },
     keys = {
@@ -62,12 +62,12 @@ return {
       },
       -- Hunk operations
       {
-        "<leader>gp",
+        "<leader>hp",
         "<cmd>Gitsigns preview_hunk<cr>",
         desc = "Preview Hunk",
       },
       {
-        "<leader>gP",
+        "<leader>hP",
         "<cmd>Gitsigns preview_hunk_inline<cr>",
         desc = "Preview Hunk Inline",
       },
@@ -77,7 +77,7 @@ return {
         desc = "Stage/Unstage Hunk",
       },
       {
-        "<leader>gr",
+        "<leader>hr",
         "<cmd>Gitsigns reset_hunk<cr>",
         desc = "Reset Hunk",
       },
