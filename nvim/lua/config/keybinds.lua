@@ -80,5 +80,5 @@ vim.keymap.set("n", "<leader>tv", "<cmd>vsplit | terminal<cr>i", { desc = "Verti
 
 -- Extras
 vim.keymap.set("n", "<leader>E", vim.diagnostic.setloclist, { desc = "List buffer diagnostic" })
-vim.keymap.set("n", "<leader>G", "<cmd>G<cr>", { desc = "Open Git fugitive" })
+vim.keymap.set("n", "<leader>fc", "<cmd>G<cr>", { desc = "Open Git fugitive" })
 vim.keymap.set("n", "<leader>C", ':G commit -m "', { desc = "Git commit" })
