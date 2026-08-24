@@ -28,6 +28,7 @@ return {
 
         map("<leader>ls", builtin.lsp_document_symbols, "Document Symbols")
         map("<leader>ll", builtin.lsp_workspace_symbols, "Workspace Symbols")
+        map("<leader>L", builtin.lsp_dynamic_workspace_symbols, "Dynamic Workspace Symbols")
 
         map("<leader>ca", vim.lsp.buf.code_action, "Code actions")
         map("<leader>cr", vim.lsp.buf.rename, "Code: Rename")
