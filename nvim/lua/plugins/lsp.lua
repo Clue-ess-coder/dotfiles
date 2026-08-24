@@ -27,7 +27,7 @@ return {
         map("gy", builtin.lsp_type_definitions, "Type Definition")
 
         map("<leader>ls", builtin.lsp_document_symbols, "Document Symbols")
-        map("<leader>lS", builtin.lsp_workspace_symbols, "Workspace Symbols")
+        map("<leader>ll", builtin.lsp_workspace_symbols, "Workspace Symbols")
 
         map("<leader>ca", vim.lsp.buf.code_action, "Code actions")
         map("<leader>cr", vim.lsp.buf.rename, "Code: Rename")

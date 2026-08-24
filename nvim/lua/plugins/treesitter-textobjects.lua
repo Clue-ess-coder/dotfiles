@@ -47,6 +47,10 @@ return {
       require("nvim-treesitter-textobjects.move").goto_next_start("@local.scope", "locals")
     end)
 
+    vim.keymap.set({ "n", "x", "o" }, "]o", function()
+      require("nvim-treesitter-textobjects.move").goto_next_start({ "@loop.inner", "@loop.outer" }, "textobjects")
+    end)
+
     -- Folds
     vim.keymap.set({ "n", "x", "o" }, "]z", function()
       require("nvim-treesitter-textobjects.move").goto_next_start("@fold", "folds")
