@@ -4,6 +4,7 @@ vim.o.relativenumber = false
 
 vim.o.mouse = "a"
 vim.o.showmode = false
+vim.o.shada = "!,'0,<50,s10,h,r/tmp/,r/private/"
 
 vim.o.tabstop = 4
 vim.o.shiftwidth = 4
